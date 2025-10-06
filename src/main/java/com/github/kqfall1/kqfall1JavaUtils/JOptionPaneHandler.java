@@ -6,7 +6,7 @@ import com.github.kqfall1.kqfall1JavaEnums.YesNoInput;
 import com.github.kqfall1.kqfall1JavaExceptions.InvalidStringInputException;
 import javax.swing.JOptionPane;
 
-public final class JOptionPaneOutput
+public final class JOptionPaneHandler
 {
 	public static int promptForValidInteger(String prompt, int lowerBound, int upperBound)
 	{
@@ -42,39 +42,23 @@ public final class JOptionPaneOutput
 
 	public static YesNoInput promptForYesNoInput(String prompt)
 	{
-		String userInputString;
+		int userInput;
 
-		while (true)
+		userInput = JOptionPane.showConfirmDialog(
+			null,
+			prompt,
+			"Confirmation Required",
+			JOptionPane.YES_NO_OPTION,
+			JOptionPane.QUESTION_MESSAGE
+		);
+
+		if (userInput == JOptionPane.YES_OPTION)
 		{
-			userInputString = JOptionPane.showInputDialog(
-				null,
-				prompt
-			);
-
-			try
-			{
-				if (userInputString == null)
-				{
-					throw new InvalidStringInputException();
-				}
-				else if (userInputString.length() != 1 || !userInputString.equalsIgnoreCase("Y") &&  !userInputString.equalsIgnoreCase("N"))
-				{
-					throw new InvalidStringInputException(userInputString);
-				}
-
-				if (userInputString.equalsIgnoreCase("Y"))
-				{
-					return YesNoInput.YES;
-				}
-				else
-				{
-					return YesNoInput.NO;
-				}
-			}
-			catch (InvalidStringInputException e)
-			{
-				showExceptionDialog(e.getMessage());
-			}
+			return YesNoInput.YES;
+		}
+		else
+		{
+			return YesNoInput.NO;
 		}
 	}
 
