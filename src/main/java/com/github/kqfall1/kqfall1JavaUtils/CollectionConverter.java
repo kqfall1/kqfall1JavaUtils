@@ -18,4 +18,34 @@ public final class CollectionConverter
 
 		return values;
 	}
+
+	public static int[] reverse(int[] arr)
+	{
+		int arrIndex;
+		int[] reverseArr = new int[arr.length];
+		int reverseIndex = 0;
+
+		for (arrIndex = arr.length - 1; arrIndex >= 0; arrIndex--)
+		{
+			reverseArr[reverseIndex] = arr[arrIndex];
+			reverseIndex++;
+		}
+
+		return reverseArr;
+	}
+
+	public static Object[] reverse(Object[] arr)
+	{
+		int arrIndex;
+		Object[] reverseArr = new Object[arr.length];
+		int reverseIndex = 0;
+
+		for (arrIndex = arr.length - 1; arrIndex >= 0; arrIndex--)
+		{
+			reverseArr[reverseIndex] = arr[arrIndex];
+			reverseIndex++;
+		}
+
+		return reverseArr;
+	}
 }
