@@ -5,6 +5,8 @@ package com.github.kqfall1.kqfall1JavaUtils;
 import com.github.kqfall1.kqfall1JavaEnums.YesNoInput;
 import com.github.kqfall1.kqfall1JavaExceptions.InvalidStringInputException;
 import javax.swing.JOptionPane;
+import java.util.Arrays;
+import java.util.List;
 
 public final class JOptionPaneHandler
 {
@@ -19,7 +21,7 @@ public final class JOptionPaneHandler
 
 			try
 			{
-				if (userInput == null)
+				if (userInput == null || userInput.isEmpty())
 				{
 					throw new InvalidStringInputException();
 				}
@@ -40,11 +42,68 @@ public final class JOptionPaneHandler
 		}
 	}
 
+	public static String promptForValidString(String prompt, List<String> validStrings)
+	{
+		String userInput;
+		List<String> normalizedValidStrings = CollectionConverter.normalizeStrings(validStrings);
+		int validStringsIndex;
+
+		while (true)
+		{
+			userInput =  JOptionPane.showInputDialog(null, prompt);
+
+			try
+			{
+				if (userInput == null || userInput.isEmpty())
+				{
+					throw new InvalidStringInputException();
+				}
+				else if (!normalizedValidStrings.contains(userInput.toUpperCase()))
+				{
+					throw new InvalidStringInputException(userInput);
+				}
+
+				return userInput;
+			}
+			catch (InvalidStringInputException e)
+			{
+				showExceptionDialog(e.getMessage());
+			}
+		}
+	}
+
+	public static String promptForValidString(String prompt, String[] validStrings)
+	{
+		String[] normalizedValidStrings = CollectionConverter.normalizeStrings(validStrings);
+		String userInput;
+
+		while (true)
+		{
+			userInput =  JOptionPane.showInputDialog(null, prompt);
+
+			try
+			{
+				if (userInput == null || userInput.isEmpty())
+				{
+					throw new InvalidStringInputException();
+				}
+				else if (!Arrays.asList(normalizedValidStrings).contains(userInput.toUpperCase()))
+				{
+					throw new InvalidStringInputException(userInput);
+				}
+
+				return userInput;
+			}
+			catch (InvalidStringInputException e)
+			{
+				showExceptionDialog(e.getMessage());
+			}
+		}
+	}
+
 	public static YesNoInput promptForYesNoInput(String prompt)
 	{
-		int userInput;
-
-		userInput = JOptionPane.showConfirmDialog(
+		int userInput = JOptionPane.showConfirmDialog(
 			null,
 			prompt,
 			"Confirmation Required",
