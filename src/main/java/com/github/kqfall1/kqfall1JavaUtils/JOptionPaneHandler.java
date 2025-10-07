@@ -23,7 +23,7 @@ public final class JOptionPaneHandler
 			{
 				ObjectUtils.validateInputWasEntered(input);
 				inputDbl = Double.parseDouble(input);
-				ObjectUtils.validateArgument(inputDbl, "Input", lowerBound, upperBound);
+				ObjectUtils.validateNumber(inputDbl, "Input", lowerBound, upperBound);
 				return inputDbl;
 			}
 			catch (IllegalArgumentException | InvalidStringInputException e)
@@ -46,7 +46,7 @@ public final class JOptionPaneHandler
 			{
 				ObjectUtils.validateInputWasEntered(input);
 				inputInt = Integer.parseInt(input);
-				ObjectUtils.validateArgument(inputInt, "Input", lowerBound, upperBound);
+				ObjectUtils.validateNumber(inputInt, "Input", lowerBound, upperBound);
 				return inputInt;
 			}
 			catch (IllegalArgumentException | InvalidStringInputException e)
