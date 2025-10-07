@@ -11,7 +11,7 @@ public final class ObjectUtils
 		if (arg < lowerBound || arg > upperBound)
 		{
 			throw new IllegalArgumentException(
-				String.format("\n%s\n needs to remain between %.2f and %.2f inclusive. %.2f is invalid.",
+				String.format("\n%s needs to remain between %.2f and %.2f inclusive. %.2f is invalid.",
 					argName, lowerBound, upperBound, arg
 				)
 			);

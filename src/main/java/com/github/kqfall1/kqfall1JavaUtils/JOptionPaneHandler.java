@@ -28,7 +28,7 @@ public final class JOptionPaneHandler
 			}
 			catch (IllegalArgumentException | InvalidStringInputException e)
 			{
-				showExceptionDialog(e.getMessage());
+				showException(e.getMessage());
 			}
 		}
 	}
@@ -51,7 +51,7 @@ public final class JOptionPaneHandler
 			}
 			catch (IllegalArgumentException | InvalidStringInputException e)
 			{
-				showExceptionDialog(e.getMessage());
+				showException(e.getMessage());
 			}
 		}
 	}
@@ -78,7 +78,7 @@ public final class JOptionPaneHandler
 			}
 			catch (InvalidStringInputException e)
 			{
-				showExceptionDialog(e.getMessage());
+				showException(e.getMessage());
 			}
 		}
 	}
@@ -105,7 +105,7 @@ public final class JOptionPaneHandler
 			}
 			catch (InvalidStringInputException e)
 			{
-				showExceptionDialog(e.getMessage());
+				showException(e.getMessage());
 			}
 		}
 	}
@@ -130,7 +130,7 @@ public final class JOptionPaneHandler
 		}
 	}
 
-	public static void showExceptionDialog(String message)
+	public static void showException(String message)
 	{
 		JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
