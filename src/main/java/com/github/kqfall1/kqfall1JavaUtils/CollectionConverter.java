@@ -34,12 +34,38 @@ public final class CollectionConverter
 
 	public static int[] toIntArr(List<Integer> list)
 	{
+		int listIndex;
 		int[] values = new int[list.size()];
-		int valuesIndex;
 
-		for (valuesIndex = 0; valuesIndex < values.length; valuesIndex++)
+		for (listIndex = 0; listIndex < values.length; listIndex++)
 		{
-			values[valuesIndex] = list.get(valuesIndex);
+			values[listIndex] = list.get(listIndex);
+		}
+
+		return values;
+	}
+
+	public static List<String> toStringList(List<Object> list)
+	{
+		List<String> values = new ArrayList<>();
+		int listIndex;
+
+		for (listIndex = 0; listIndex < list.size(); listIndex++)
+		{
+			values.add(list.get(listIndex).toString());
+		}
+
+		return values;
+	}
+
+	public static String[] toStringArr(Object[] arr)
+	{
+		int arrIndex;
+		String[] values = new String[arr.length];
+
+		for (arrIndex = 0; arrIndex < values.length; arrIndex++)
+		{
+			values[arrIndex] = arr[arrIndex].toString();
 		}
 
 		return values;

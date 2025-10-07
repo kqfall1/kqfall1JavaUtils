@@ -40,7 +40,7 @@ public final class JOptionPaneHandler
 
 		while (true)
 		{
-			input = StringUtils.normalize(JOptionPane.showInputDialog(null, prompt));
+			input = StringUtils.normalizeLower(JOptionPane.showInputDialog(null, prompt));
 
 			try
 			{
@@ -63,7 +63,7 @@ public final class JOptionPaneHandler
 
 		while (true)
 		{
-			input = StringUtils.normalize(JOptionPane.showInputDialog(null, prompt));
+			input = StringUtils.normalizeLower(JOptionPane.showInputDialog(null, prompt));
 
 			try
 			{
@@ -90,7 +90,7 @@ public final class JOptionPaneHandler
 
 		while (true)
 		{
-			input = StringUtils.normalize(JOptionPane.showInputDialog(null, prompt));
+			input = StringUtils.normalizeLower(JOptionPane.showInputDialog(null, prompt));
 
 			try
 			{
