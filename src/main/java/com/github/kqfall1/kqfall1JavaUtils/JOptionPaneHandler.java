@@ -26,7 +26,7 @@ public final class JOptionPaneHandler
 				ObjectUtils.validateArgument(inputDbl, "Input", lowerBound, upperBound);
 				return inputDbl;
 			}
-			catch (NumberFormatException | InvalidStringInputException e)
+			catch (IllegalArgumentException | InvalidStringInputException e)
 			{
 				showExceptionDialog(e.getMessage());
 			}
@@ -49,7 +49,7 @@ public final class JOptionPaneHandler
 				ObjectUtils.validateArgument(inputInt, "Input", lowerBound, upperBound);
 				return inputInt;
 			}
-			catch (NumberFormatException | InvalidStringInputException e)
+			catch (IllegalArgumentException | InvalidStringInputException e)
 			{
 				showExceptionDialog(e.getMessage());
 			}
