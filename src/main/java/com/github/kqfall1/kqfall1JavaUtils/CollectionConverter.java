@@ -13,7 +13,7 @@ public final class CollectionConverter
 
 		for (String str : list)
 		{
-			normalizedList.add(str.toUpperCase());
+			normalizedList.add(str.toLowerCase());
 		}
 
 		return normalizedList;
@@ -26,7 +26,7 @@ public final class CollectionConverter
 
 		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
 		{
-			normalizedArr[arrIndex] = arr[arrIndex].toUpperCase();
+			normalizedArr[arrIndex] = arr[arrIndex].toLowerCase();
 		}
 
 		return normalizedArr;

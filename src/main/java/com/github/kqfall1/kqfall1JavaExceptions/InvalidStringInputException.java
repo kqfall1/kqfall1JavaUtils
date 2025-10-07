@@ -2,7 +2,7 @@
 
 package com.github.kqfall1.kqfall1JavaExceptions;
 
-public final class InvalidStringInputException extends Exception
+public final class InvalidStringInputException extends RuntimeException
 {
 	private static final String NO_INPUT_MSG = "You must provide input.";
 

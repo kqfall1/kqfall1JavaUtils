@@ -2,6 +2,8 @@
 
 package com.github.kqfall1.kqfall1JavaUtils;
 
+import com.github.kqfall1.kqfall1JavaExceptions.InvalidStringInputException;
+
 public final class ObjectUtils
 {
 	public static void validateArgument(double arg, String argName, double lowerBound, double upperBound)
@@ -13,6 +15,14 @@ public final class ObjectUtils
 					argName, lowerBound, upperBound, arg
 				)
 			);
+		}
+	}
+
+	public static void validateInputWasEntered(String userInput)
+	{
+		if (userInput == null || userInput.isEmpty())
+		{
+			throw new InvalidStringInputException();
 		}
 	}
 }

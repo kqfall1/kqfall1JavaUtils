@@ -10,30 +10,44 @@ import java.util.List;
 
 public final class JOptionPaneHandler
 {
-	public static int promptForValidInteger(String prompt, int lowerBound, int upperBound)
+	public static double promptForValidDouble(String prompt, double lowerBound, double upperBound)
 	{
-		String userInput;
-		int userInputAsInt;
+		String input;
+		double inputDbl;
 
 		while (true)
 		{
-			userInput = JOptionPane.showInputDialog(null, prompt);
+			input = JOptionPane.showInputDialog(null, prompt);
 
 			try
 			{
-				if (userInput == null || userInput.isEmpty())
-				{
-					throw new InvalidStringInputException();
-				}
+				ObjectUtils.validateInputWasEntered(input);
+				inputDbl = Double.parseDouble(input);
+				ObjectUtils.validateArgument(inputDbl, "Input", lowerBound, upperBound);
+				return inputDbl;
+			}
+			catch (NumberFormatException | InvalidStringInputException e)
+			{
+				showExceptionDialog(e.getMessage());
+			}
+		}
+	}
 
-				userInputAsInt = Integer.parseInt(userInput);
+	public static int promptForValidInteger(String prompt, int lowerBound, int upperBound)
+	{
+		String input;
+		int inputInt;
 
-				if (userInputAsInt < lowerBound || userInputAsInt > upperBound)
-				{
-					throw new InvalidStringInputException(lowerBound, upperBound);
-				}
+		while (true)
+		{
+			input = StringUtils.normalize(JOptionPane.showInputDialog(null, prompt));
 
-				return userInputAsInt;
+			try
+			{
+				ObjectUtils.validateInputWasEntered(input);
+				inputInt = Integer.parseInt(input);
+				ObjectUtils.validateArgument(inputInt, "Input", lowerBound, upperBound);
+				return inputInt;
 			}
 			catch (NumberFormatException | InvalidStringInputException e)
 			{
@@ -44,26 +58,23 @@ public final class JOptionPaneHandler
 
 	public static String promptForValidString(String prompt, List<String> validStrings)
 	{
-		String userInput;
+		String input;
 		List<String> normalizedValidStrings = CollectionConverter.normalizeStrings(validStrings);
-		int validStringsIndex;
 
 		while (true)
 		{
-			userInput =  JOptionPane.showInputDialog(null, prompt);
+			input = StringUtils.normalize(JOptionPane.showInputDialog(null, prompt));
 
 			try
 			{
-				if (userInput == null || userInput.isEmpty())
+				ObjectUtils.validateInputWasEntered(input);
+
+				if (!normalizedValidStrings.contains(input))
 				{
-					throw new InvalidStringInputException();
-				}
-				else if (!normalizedValidStrings.contains(userInput.toUpperCase()))
-				{
-					throw new InvalidStringInputException(userInput);
+					throw new InvalidStringInputException(input);
 				}
 
-				return userInput;
+				return input;
 			}
 			catch (InvalidStringInputException e)
 			{
@@ -74,25 +85,23 @@ public final class JOptionPaneHandler
 
 	public static String promptForValidString(String prompt, String[] validStrings)
 	{
+		String input;
 		String[] normalizedValidStrings = CollectionConverter.normalizeStrings(validStrings);
-		String userInput;
 
 		while (true)
 		{
-			userInput =  JOptionPane.showInputDialog(null, prompt);
+			input = StringUtils.normalize(JOptionPane.showInputDialog(null, prompt));
 
 			try
 			{
-				if (userInput == null || userInput.isEmpty())
+				ObjectUtils.validateInputWasEntered(input);
+
+				if (!Arrays.asList(normalizedValidStrings).contains(input))
 				{
-					throw new InvalidStringInputException();
-				}
-				else if (!Arrays.asList(normalizedValidStrings).contains(userInput.toUpperCase()))
-				{
-					throw new InvalidStringInputException(userInput);
+					throw new InvalidStringInputException(input);
 				}
 
-				return userInput;
+				return input;
 			}
 			catch (InvalidStringInputException e)
 			{
