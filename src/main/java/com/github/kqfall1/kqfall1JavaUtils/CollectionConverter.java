@@ -2,31 +2,57 @@
 
 package com.github.kqfall1.kqfall1JavaUtils;
 
+import com.github.kqfall1.kqfall1JavaUtils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class CollectionConverter
 {
-	public static List<String> normalizeStrings(List<String> list)
+	public static List<String> normalizeStringsUpper(List<String> list)
 	{
 		List<String> normalizedList = new ArrayList<String>();
 
 		for (String str : list)
 		{
-			normalizedList.add(str.toLowerCase());
+			normalizedList.add(StringUtils.normalizeUpper(str));
 		}
 
 		return normalizedList;
 	}
 
-	public static String[] normalizeStrings(String[] arr)
+	public static String[] normalizeStringsUpper(String[] arr)
 	{
 		int arrIndex;
 		String[] normalizedArr = new String[arr.length];
 
 		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
 		{
-			normalizedArr[arrIndex] = arr[arrIndex].toLowerCase();
+			normalizedArr[arrIndex] = StringUtils.normalizeUpper(arr[arrIndex]);
+		}
+
+		return normalizedArr;
+	}
+
+	public static List<String> normalizeStringsLower(List<String> list)
+	{
+		List<String> normalizedList = new ArrayList<String>();
+
+		for (String str : list)
+		{
+			normalizedList.add(StringUtils.normalizeLower(str));
+		}
+
+		return normalizedList;
+	}
+
+	public static String[] normalizeStringsLower(String[] arr)
+	{
+		int arrIndex;
+		String[] normalizedArr = new String[arr.length];
+
+		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
+		{
+			normalizedArr[arrIndex] = StringUtils.normalizeLower(arr[arrIndex]);
 		}
 
 		return normalizedArr;

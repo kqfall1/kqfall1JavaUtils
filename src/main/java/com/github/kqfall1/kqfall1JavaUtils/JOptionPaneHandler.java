@@ -59,7 +59,7 @@ public final class JOptionPaneHandler
 	public static String promptForValidString(String prompt, List<String> validStrings)
 	{
 		String input;
-		List<String> normalizedValidStrings = CollectionConverter.normalizeStrings(validStrings);
+		List<String> normalizedValidStrings = CollectionConverter.normalizeStringsLower(validStrings);
 
 		while (true)
 		{
@@ -86,7 +86,7 @@ public final class JOptionPaneHandler
 	public static String promptForValidString(String prompt, String[] validStrings)
 	{
 		String input;
-		String[] normalizedValidStrings = CollectionConverter.normalizeStrings(validStrings);
+		String[] normalizedValidStrings = CollectionConverter.normalizeStringsLower(validStrings);
 
 		while (true)
 		{
