@@ -32,6 +32,19 @@ public final class CollectionConverter
 		return normalizedArr;
 	}
 
+	public static int[] toIntArr(Integer[] arr)
+	{
+		int index;
+		int[] values = new int[arr.length];
+
+		for (index = 0; index < arr.length; index++)
+		{
+			values[index] = arr[index];
+		}
+
+		return values;
+	}
+
 	public static int[] toIntArr(Object[] arr)
 	{
 		int index;
