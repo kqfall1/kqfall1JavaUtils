@@ -1,6 +1,6 @@
 // Quinn Keenan, 05/10/2025
 
-package com.github.kqfall1.kqfall1JavaExceptions;
+package com.github.kqfall1.exceptions;
 
 public final class InvalidStringInputException extends RuntimeException
 {
