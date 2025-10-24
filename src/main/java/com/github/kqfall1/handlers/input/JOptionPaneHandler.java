@@ -1,20 +1,30 @@
-// Quinn Keenan, 05/10/2025
-
-package com.github.kqfall1.handlers;
+package com.github.kqfall1.handlers.input;
 
 import com.github.kqfall1.enums.YesNoInput;
 import com.github.kqfall1.exceptions.InvalidStringInputException;
-import com.github.kqfall1.interfaces.inputters.NumberInputter;
-import com.github.kqfall1.interfaces.inputters.StringInputter;
-import com.github.kqfall1.interfaces.inputters.YesNoInputter;
+import com.github.kqfall1.interfaces.ErrorPresenter;
+import com.github.kqfall1.interfaces.inputters.*;
 import com.github.kqfall1.utils.CollectionConverter;
 import com.github.kqfall1.utils.StringUtils;
 import javax.swing.JOptionPane;
 import java.util.Arrays;
 
+/**
+ * Handles user IO operations through {@code JOptionPane} panes.
+ *
+ * <p>
+ * Error traps prevent client service until valid input is submitted. Encapsulate
+ * {@code JOptionPaneHandler} into {@code InputHandler} rather than using objects of
+ * this type directly.
+ * </p>
+ *
+ * @author Quinn Keenan
+ * @since 05/10/2025
+ */
 public final class JOptionPaneHandler
-implements NumberInputter, StringInputter, YesNoInputter
+implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 {
+	@Override
 	public double getNumber(String prompt, double lowerBound, double upperBound)
 	{
 		String input;
@@ -33,11 +43,12 @@ implements NumberInputter, StringInputter, YesNoInputter
 			}
 			catch (IllegalArgumentException | InvalidStringInputException e)
 			{
-				showException(e.getMessage());
+				showError(e);
 			}
 		}
 	}
 
+	@Override
 	public String getString(String prompt, String[] validStrings)
 	{
 		String input;
@@ -60,11 +71,12 @@ implements NumberInputter, StringInputter, YesNoInputter
 			}
 			catch (InvalidStringInputException e)
 			{
-				showException(e.getMessage());
+				showError(e);
 			}
 		}
 	}
 
+	@Override
 	public YesNoInput getYesNo(String prompt)
 	{
 		int userInput = JOptionPane.showConfirmDialog(
@@ -85,8 +97,9 @@ implements NumberInputter, StringInputter, YesNoInputter
 		}
 	}
 
-	private static void showException(String message)
+	@Override
+	public void showError(Exception e)
 	{
-		JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }

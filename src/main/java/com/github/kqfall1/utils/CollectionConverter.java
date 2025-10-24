@@ -1,7 +1,10 @@
-// Quinn Keenan, 05/10/2025
-
 package com.github.kqfall1.utils;
 
+/**
+ * Static class. Provides abstractions for repetitive, collection-related tasks.
+ * @author Quinn Keenan
+ * @since 05/10/2025
+ */
 public final class CollectionConverter
 {
 	private CollectionConverter() {}

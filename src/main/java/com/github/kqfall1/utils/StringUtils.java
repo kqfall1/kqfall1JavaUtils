@@ -1,7 +1,10 @@
-// Quinn Keenan, 07/10/2025
-
 package com.github.kqfall1.utils;
 
+/**
+ * Static class. Provides abstractions for repetitive, string-related tasks.
+ * @author Quinn Keenan
+ * @since 24/10/2025
+ */
 public final class StringUtils
 {
 	private StringUtils() {}
