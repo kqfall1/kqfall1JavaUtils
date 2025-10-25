@@ -52,7 +52,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	public String getString(String prompt, String[] validStrings)
 	{
 		String input;
-		String[] normalizedValidStrings = CollectionConverter.normalizeStringsLower(validStrings);
+		final String[] normalizedValidStrings = CollectionConverter.normalizeStringsLower(validStrings);
 
 		while (true)
 		{
@@ -79,7 +79,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	@Override
 	public YesNoInput getYesNo(String prompt)
 	{
-		int userInput = JOptionPane.showConfirmDialog(
+		final int userInput = JOptionPane.showConfirmDialog(
 			null,
 			prompt,
 			"Confirmation Required",

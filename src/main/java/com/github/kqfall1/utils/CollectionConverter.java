@@ -12,7 +12,7 @@ public final class CollectionConverter
 	public static String[] normalizeStringsUpper(String[] arr)
 	{
 		int arrIndex;
-		String[] normalizedArr = new String[arr.length];
+		final String[] normalizedArr = new String[arr.length];
 
 		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
 		{
@@ -25,7 +25,7 @@ public final class CollectionConverter
 	public static String[] normalizeStringsLower(String[] arr)
 	{
 		int arrIndex;
-		String[] normalizedArr = new String[arr.length];
+		final String[] normalizedArr = new String[arr.length];
 
 		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
 		{
@@ -38,7 +38,7 @@ public final class CollectionConverter
 	public static int[] toIntArr(Integer[] arr)
 	{
 		int index;
-		int[] values = new int[arr.length];
+		final int[] values = new int[arr.length];
 
 		for (index = 0; index < arr.length; index++)
 		{
@@ -51,7 +51,7 @@ public final class CollectionConverter
 	public static int[] toIntArr(Object[] arr)
 	{
 		int index;
-		int[] values =  new int[arr.length];
+		final int[] values =  new int[arr.length];
 
 		for (index = 0; index < arr.length; index++)
 		{
@@ -64,7 +64,7 @@ public final class CollectionConverter
 	public static Integer[] toIntegerArr(int[] arr)
 	{
 		int index;
-		Integer[] values = new Integer[arr.length];
+		final Integer[] values = new Integer[arr.length];
 
 		for (index = 0; index < arr.length; index++)
 		{
@@ -77,7 +77,7 @@ public final class CollectionConverter
 	public static String[] toStringArr(Object[] arr)
 	{
 		int arrIndex;
-		String[] values = new String[arr.length];
+		final String[] values = new String[arr.length];
 
 		for (arrIndex = 0; arrIndex < values.length; arrIndex++)
 		{
@@ -90,7 +90,7 @@ public final class CollectionConverter
 	public static Object[] reverse(Object[] arr)
 	{
 		int arrIndex;
-		Object[] reverseArr = new Object[arr.length];
+		final Object[] reverseArr = new Object[arr.length];
 		int reverseIndex = 0;
 
 		for (arrIndex = arr.length - 1; arrIndex >= 0; arrIndex--)

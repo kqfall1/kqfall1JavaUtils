@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"com.github.kqfall1.enums"},{"l":"com.github.kqfall1.exceptions"},{"l":"com.github.kqfall1.handlers.input"},{"l":"com.github.kqfall1.interfaces"},{"l":"com.github.kqfall1.interfaces.inputters"},{"l":"com.github.kqfall1.utils"}];updateSearchResults();
