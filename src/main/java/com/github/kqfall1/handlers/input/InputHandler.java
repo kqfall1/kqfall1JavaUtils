@@ -72,6 +72,10 @@ public final class InputHandler
 		);
 	}
 
+	/**
+ 	* Guards against null or empty {@code userInput} strings.
+ 	* @throws InvalidStringInputException when the input is null.
+ 	*/
 	public static void validateInputWasEntered(String userInput)
 	{
 		if (userInput == null || userInput.isEmpty())
@@ -80,18 +84,31 @@ public final class InputHandler
 		}
 	}
 
-	public static void validateNumber(double num, String argName, double lowerBound, double upperBound)
+	/**
+ 	* Guards against invalid numbers.
+ 	* @param num User input.
+ 	* @param numName The name of the input.
+ 	* @param lowerBound The lowest acceptable number.
+ 	* @param upperBound The highest acceptable number.
+	 * @throws IllegalArgumentException when the input is out of bounds.
+ 	*/
+	public static void validateNumber(double num, String numName, double lowerBound, double upperBound)
 	{
 		if (num < lowerBound || num > upperBound)
 		{
 			throw new IllegalArgumentException(
 				String.format("\n%s needs to remain between %.2f and %.2f inclusive. %.2f is invalid.",
-				argName, lowerBound, upperBound, num)
+				numName, lowerBound, upperBound, num)
 			);
 		}
 	}
 
-	public static void validateObjIsNotNull(String name, Object obj)
+	/**
+ 	* Guards against null {@code Object} arguments.
+ 	* @param name The name of the input.
+ 	* @throws IllegalStateException when the input is null.
+ 	*/
+public static void validateObjIsNotNull(String name, Object obj)
 	{
 		if (obj == null)
 		{
