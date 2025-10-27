@@ -1,8 +1,9 @@
-package com.github.kqfall1.handlers.input;
+package com.github.kqfall1.java.validators;
 
-import com.github.kqfall1.enums.YesNoInput;
-import com.github.kqfall1.exceptions.InvalidStringInputException;
-import com.github.kqfall1.interfaces.inputters.*;
+import com.github.kqfall1.java.enums.YesNoInput;
+import com.github.kqfall1.java.interfaces.inputters.NumberInputter;
+import com.github.kqfall1.java.interfaces.inputters.StringInputter;
+import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
 
 /**
  * Provides an interface to use {@code Inputter}-implementing objects.
@@ -15,13 +16,13 @@ import com.github.kqfall1.interfaces.inputters.*;
  * @author Quinn Keenan
  * @since 24/10/2025
  */
-public final class InputHandler
+public final class InputValidator
 {
 	private final NumberInputter numberInputter;
 	private final StringInputter stringInputter;
 	private final YesNoInputter yesNoInputter;
 
-	public InputHandler(NumberInputter numberInputter, StringInputter stringInputter, YesNoInputter yesNoInputter)
+	public InputValidator(NumberInputter numberInputter, StringInputter stringInputter, YesNoInputter yesNoInputter)
 	{
 		this.numberInputter = numberInputter;
 		this.stringInputter = stringInputter;
@@ -73,18 +74,6 @@ public final class InputHandler
 	}
 
 	/**
- 	* Guards against null or empty {@code userInput} strings.
- 	* @throws InvalidStringInputException when the input is null.
- 	*/
-	public static void validateInputWasEntered(String userInput)
-	{
-		if (userInput == null || userInput.isEmpty())
-		{
-			throw new InvalidStringInputException();
-		}
-	}
-
-	/**
  	* Guards against invalid numbers.
  	* @param num User input.
  	* @param numName The name of the input.
@@ -92,7 +81,8 @@ public final class InputHandler
  	* @param upperBound The highest acceptable number.
 	 * @throws IllegalArgumentException when the input is out of bounds.
  	*/
-	public static void validateNumber(double num, String numName, double lowerBound, double upperBound)
+	public static void validateNumber
+	(double num, String numName, double lowerBound, double upperBound)
 	{
 		if (num < lowerBound || num > upperBound)
 		{
@@ -108,7 +98,7 @@ public final class InputHandler
  	* @param name The name of the input.
  	* @throws IllegalStateException when the input is null.
  	*/
-public static void validateObjIsNotNull(String name, Object obj)
+	public static void validateObjIsNotNull(String name, Object obj)
 	{
 		if (obj == null)
 		{

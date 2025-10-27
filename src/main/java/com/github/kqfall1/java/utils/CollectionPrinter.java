@@ -1,10 +1,12 @@
-package com.github.kqfall1.utils;
+package com.github.kqfall1.java.utils;
 
+import com.github.kqfall1.java.validators.InputValidator;
 import java.io.PrintStream;
 import java.util.Arrays;
 
 /**
- * Prints prompts and {@code Arrays.toString} values of arrays to an encapsulated {@code PrintStream}.
+ * Prints prompts and {@code Arrays.toString} values of arrays to an encapsulated
+ * {@code PrintStream}.
  * @author Quinn Keenan
  * @since 05/10/2025
  */
@@ -17,8 +19,13 @@ public final class CollectionPrinter
 		out = System.out;
 	}
 
+	/**
+ 	* @param out The output {@code PrintStream}.
+	 * @throws IllegalStateException if {@code out} is null.
+ 	*/
 	public CollectionPrinter(PrintStream out)
 	{
+		InputValidator.validateObjIsNotNull("out", out);
 		this.out = out;
 	}
 
@@ -37,7 +44,7 @@ public final class CollectionPrinter
 	{
 		return String.format("%s[out=%s]",
 			getClass().getName(),
-			out != null ? out : "null"
+			getOut()
 		);
 	}
 }

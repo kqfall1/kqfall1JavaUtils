@@ -1,4 +1,4 @@
-package com.github.kqfall1.utils;
+package com.github.kqfall1.java.utils;
 
 /**
  * Static class. Provides abstractions for repetitive, collection-related tasks.

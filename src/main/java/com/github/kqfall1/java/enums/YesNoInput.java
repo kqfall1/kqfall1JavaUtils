@@ -1,4 +1,4 @@
-package com.github.kqfall1.enums;
+package com.github.kqfall1.java.enums;
 
 /**
  * Represents a normalized binary input for yes/no decisions.
