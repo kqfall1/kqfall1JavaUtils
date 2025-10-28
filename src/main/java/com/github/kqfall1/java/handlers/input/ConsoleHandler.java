@@ -43,9 +43,10 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	/**
  	* @param in The input {@code Scanner}.
  	* @param out The output {@code PrintStream}.
-	 * @throws IllegalStateException if either {@code in} or {@code out} is null.
+	 * @throws IllegalArgumentException if either {@code in} or {@code out} is null.
  	*/
 	public ConsoleHandler(Scanner in, PrintStream out)
+	throws IllegalArgumentException
 	{
 		InputValidator.validateObjIsNotNull("in", in);
 		this.in = in;

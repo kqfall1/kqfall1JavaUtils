@@ -44,19 +44,24 @@ public final class InputValidator
 		return yesNoInputter;
 	}
 
-	public double promptForNumber(String prompt, double lowerBound, double upperBound)
+	public double promptForNumber
+	(String prompt, double lowerBound, double upperBound)
+	throws IllegalArgumentException
 	{
 		validateObjIsNotNull("numberInputter", numberInputter);
 		return numberInputter.getNumber(prompt, lowerBound, upperBound);
 	}
 
-	public String promptForString(String prompt, String[] validStrings)
+	public String promptForString
+	(String prompt, String[] validStrings)
+	throws IllegalArgumentException
 	{
 		validateObjIsNotNull("stringInputter", stringInputter);
 		return stringInputter.getString(prompt, validStrings);
 	}
 
 	public YesNoInput promptForYesNo(String prompt)
+	throws IllegalArgumentException
 	{
 		validateObjIsNotNull("yesNoInputter", yesNoInputter);
 		return yesNoInputter.getYesNo(prompt);
@@ -76,13 +81,14 @@ public final class InputValidator
 	/**
  	* Guards against invalid numbers.
  	* @param num User input.
- 	* @param numName The name of the input.
+ 	* @param numName The name of {@code num}.
  	* @param lowerBound The lowest acceptable number.
  	* @param upperBound The highest acceptable number.
-	 * @throws IllegalArgumentException when the input is out of bounds.
+	 * @throws IllegalArgumentException when {@code num} is out of bounds.
  	*/
 	public static void validateNumber
 	(double num, String numName, double lowerBound, double upperBound)
+	throws IllegalArgumentException
 	{
 		if (num < lowerBound || num > upperBound)
 		{
@@ -95,14 +101,15 @@ public final class InputValidator
 
 	/**
  	* Guards against null {@code Object} arguments.
- 	* @param name The name of the input.
- 	* @throws IllegalStateException when the input is null.
+ 	* @param name The name of {@code obj}.
+ 	* @throws IllegalArgumentException when {@code obj} is null.
  	*/
 	public static void validateObjIsNotNull(String name, Object obj)
+	throws IllegalArgumentException
 	{
 		if (obj == null)
 		{
-			throw new IllegalStateException(String.format("%s is null.", name));
+			throw new IllegalArgumentException(String.format("%s is null.", name));
 		}
 	}
 }

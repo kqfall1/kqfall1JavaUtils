@@ -21,9 +21,10 @@ public final class CollectionPrinter
 
 	/**
  	* @param out The output {@code PrintStream}.
-	 * @throws IllegalStateException if {@code out} is null.
+	 * @throws IllegalArgumentException if {@code out} is null.
  	*/
 	public CollectionPrinter(PrintStream out)
+	throws IllegalArgumentException
 	{
 		InputValidator.validateObjIsNotNull("out", out);
 		this.out = out;
