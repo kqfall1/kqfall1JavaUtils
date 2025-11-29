@@ -1,8 +1,8 @@
 package com.github.kqfall1.java.utils;
 
-import com.github.kqfall1.java.validators.InputValidator;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Prints prompts and {@code Arrays.toString} values of arrays to an encapsulated
@@ -24,9 +24,8 @@ public final class CollectionPrinter
 	 * @throws IllegalArgumentException if {@code out} is null.
  	*/
 	public CollectionPrinter(PrintStream out)
-	throws IllegalArgumentException
 	{
-		InputValidator.validateObjIsNotNull("out", out);
+		Objects.requireNonNull(out, "\"out\" is null.");
 		this.out = out;
 	}
 

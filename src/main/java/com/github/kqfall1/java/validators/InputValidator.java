@@ -6,11 +6,12 @@ import com.github.kqfall1.java.interfaces.inputters.StringInputter;
 import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
 
 /**
- * Provides an interface to use {@code Inputter}-implementing objects.
+ * Provides an abstraction to use {@code Inputter}-implementing objects.
  *
  * <p>
  * Encapsulates multiple different {@code Inputter} sources, though they are immutable.
- * Provides public APIs for prompting users for various data types.
+ * Provides public APIs for prompting users for various data types. Any of the
+ * encapsulated fields may be null.
  * </p>
  *
  * @author Quinn Keenan
@@ -46,24 +47,18 @@ public final class InputValidator
 
 	public double promptForNumber
 	(String prompt, double lowerBound, double upperBound)
-	throws IllegalArgumentException
 	{
-		validateObjIsNotNull("numberInputter", numberInputter);
 		return numberInputter.getNumber(prompt, lowerBound, upperBound);
 	}
 
 	public String promptForString
 	(String prompt, String[] validStrings)
-	throws IllegalArgumentException
 	{
-		validateObjIsNotNull("stringInputter", stringInputter);
 		return stringInputter.getString(prompt, validStrings);
 	}
 
 	public YesNoInput promptForYesNo(String prompt)
-	throws IllegalArgumentException
 	{
-		validateObjIsNotNull("yesNoInputter", yesNoInputter);
 		return yesNoInputter.getYesNo(prompt);
 	}
 
@@ -88,7 +83,6 @@ public final class InputValidator
  	*/
 	public static void validateNumber
 	(double num, String numName, double lowerBound, double upperBound)
-	throws IllegalArgumentException
 	{
 		if (num < lowerBound || num > upperBound)
 		{
@@ -96,20 +90,6 @@ public final class InputValidator
 				String.format("\n%s needs to remain between %.2f and %.2f inclusive. %.2f is invalid.",
 				numName, lowerBound, upperBound, num)
 			);
-		}
-	}
-
-	/**
- 	* Guards against null {@code Object} arguments.
- 	* @param name The name of {@code obj}.
- 	* @throws IllegalArgumentException when {@code obj} is null.
- 	*/
-	public static void validateObjIsNotNull(String name, Object obj)
-	throws IllegalArgumentException
-	{
-		if (obj == null)
-		{
-			throw new IllegalArgumentException(String.format("%s is null.", name));
 		}
 	}
 }

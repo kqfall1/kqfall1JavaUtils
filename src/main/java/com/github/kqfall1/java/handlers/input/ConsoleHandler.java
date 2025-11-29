@@ -10,6 +10,7 @@ import com.github.kqfall1.java.utils.StringUtils;
 import com.github.kqfall1.java.validators.InputValidator;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -43,14 +44,13 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	/**
  	* @param in The input {@code Scanner}.
  	* @param out The output {@code PrintStream}.
-	 * @throws IllegalArgumentException if either {@code in} or {@code out} is null.
+	 * @throws NullPointerException if either {@code in} or {@code out} is null.
  	*/
 	public ConsoleHandler(Scanner in, PrintStream out)
-	throws IllegalArgumentException
 	{
-		InputValidator.validateObjIsNotNull("in", in);
+		Objects.requireNonNull(in, "\"in\" is null.");
 		this.in = in;
-		InputValidator.validateObjIsNotNull("out", out);
+		Objects.requireNonNull(out, "\"out\" is null.");
 		this.out = out;
 	}
 
@@ -112,7 +112,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 		{
 			input = promptAndRead(prompt);
 
-			if (Arrays.asList(normalizedValidStrings).contains(input))
+			if (Arrays.asList(normalizedValidStrings).contains(StringUtils.normalizeLower(input)))
 			{
 				return input;
 			}

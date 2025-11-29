@@ -4,6 +4,13 @@ import java.lang.reflect.Array;
 
 /**
  * Static class. Provides abstractions for repetitive, collection-related tasks.
+ *
+ * <p><strong>Contract:</strong> All methods in this class expect arrays that are
+ * non-null and contain no null elements. Violations will result in
+ * {@code NullPointerException}.</p>
+ *
+ * <p>Future expansion may add support for null-tolerant operations.</p>
+ *
  * @author Quinn Keenan
  * @since 05/10/2025
  */
@@ -39,12 +46,12 @@ public final class CollectionConverter
 
 	public static Integer[] toIntegerArr(Number[] arr)
 	{
-		int index;
+		int arrIndex;
 		final var values = new Integer[arr.length];
 
-		for (index = 0; index < arr.length; index++)
+		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
 		{
-			values[index] = (int) arr[index];
+			values[arrIndex] = arr[arrIndex].intValue();
 		}
 
 		return values;
@@ -66,7 +73,6 @@ public final class CollectionConverter
 	public static <T> T[] reverse(T[] arr)
 	{
 		int arrIndex;
-		int reverseIndex = 0;
 
 		@SuppressWarnings("unchecked")
 		T[] reverseArr = (T[]) Array.newInstance(
@@ -74,9 +80,9 @@ public final class CollectionConverter
 			arr.length
 		);
 
-		for (arrIndex = arr.length - 1; arrIndex >= 0; arrIndex--)
+		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
 		{
-			reverseArr[reverseIndex++] = arr[arrIndex];
+			reverseArr[arrIndex] = arr[arr.length - 1 - arrIndex];
 		}
 
 		return reverseArr;
