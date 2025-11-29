@@ -1,5 +1,7 @@
 package com.github.kqfall1.java.utils;
 
+import java.lang.reflect.Array;
+
 /**
  * Static class. Provides abstractions for repetitive, collection-related tasks.
  * @author Quinn Keenan
@@ -12,7 +14,7 @@ public final class CollectionConverter
 	public static String[] normalizeStringsUpper(String[] arr)
 	{
 		int arrIndex;
-		final String[] normalizedArr = new String[arr.length];
+		final var normalizedArr = new String[arr.length];
 
 		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
 		{
@@ -25,7 +27,7 @@ public final class CollectionConverter
 	public static String[] normalizeStringsLower(String[] arr)
 	{
 		int arrIndex;
-		final String[] normalizedArr = new String[arr.length];
+		final var normalizedArr = new String[arr.length];
 
 		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
 		{
@@ -35,40 +37,14 @@ public final class CollectionConverter
 		return normalizedArr;
 	}
 
-	public static int[] toIntArr(Integer[] arr)
+	public static Integer[] toIntegerArr(Number[] arr)
 	{
 		int index;
-		final int[] values = new int[arr.length];
-
-		for (index = 0; index < arr.length; index++)
-		{
-			values[index] = arr[index];
-		}
-
-		return values;
-	}
-
-	public static int[] toIntArr(Object[] arr)
-	{
-		int index;
-		final int[] values =  new int[arr.length];
+		final var values = new Integer[arr.length];
 
 		for (index = 0; index < arr.length; index++)
 		{
 			values[index] = (int) arr[index];
-		}
-
-		return values;
-	}
-
-	public static Integer[] toIntegerArr(int[] arr)
-	{
-		int index;
-		final Integer[] values = new Integer[arr.length];
-
-		for (index = 0; index < arr.length; index++)
-		{
-			values[index] = arr[index];
 		}
 
 		return values;
@@ -87,16 +63,20 @@ public final class CollectionConverter
 		return values;
 	}
 
-	public static Object[] reverse(Object[] arr)
+	public static <T> T[] reverse(T[] arr)
 	{
 		int arrIndex;
-		final Object[] reverseArr = new Object[arr.length];
 		int reverseIndex = 0;
+
+		@SuppressWarnings("unchecked")
+		T[] reverseArr = (T[]) Array.newInstance(
+			arr.getClass().getComponentType(),
+			arr.length
+		);
 
 		for (arrIndex = arr.length - 1; arrIndex >= 0; arrIndex--)
 		{
-			reverseArr[reverseIndex] = arr[arrIndex];
-			reverseIndex++;
+			reverseArr[reverseIndex++] = arr[arrIndex];
 		}
 
 		return reverseArr;
