@@ -11,8 +11,8 @@ import javafx.stage.Stage;
  *
  * <p>
  * Encapsulate {@code FxHandler} into {@code InputValidator} rather than using objects
- * of this type directly. Remember to instantiate {@code stage} when implementing the
- * {@code start} method.
+ * of this type directly. Instantiate {@code stage} when implementing the {@code start}
+ * method.
  * </p>
  */
 public abstract class FxHandler extends Application
@@ -25,12 +25,6 @@ public abstract class FxHandler extends Application
 	private GridPane right;
 	private final BorderPane root;
 	private Scene scene;
-
-	/**
- 	* Is intended to be a read-only record of the stage passed to the override of
-	 * Application.start(). The implementation of the override should save the parameter
-	 * to this class.
- 	*/
 	private Stage stage;
 	private String title;
 
@@ -50,6 +44,12 @@ public abstract class FxHandler extends Application
 		right = new GridPane();
 		scene = new Scene(root);
 		title = DEFAULT_TITLE;
+
+		root.setTop(header);
+		root.setLeft(left);
+		root.setCenter(center);
+		root.setRight(right);
+		root.setBottom(footer);
 	}
 
 	public final GridPane getCenter()
@@ -100,41 +100,52 @@ public abstract class FxHandler extends Application
 	public final void setCenter(GridPane center)
 	{
 		this.center = center;
+		root.setCenter(center);
 	}
 
 	public final void setFooter(HBox footer)
 	{
 		this.footer = footer;
+		root.setBottom(footer);
 	}
 
 	public final void setHeader(HBox header)
 	{
 		this.header = header;
+		root.setTop(header);
 	}
 
 	public final void setLeft(GridPane left)
 	{
 		this.left = left;
+		root.setLeft(left);
 	}
 
 	public final void setRight(GridPane right)
 	{
 		this.right = right;
+		root.setRight(right);
 	}
 
 	public final void setScene(Scene scene)
 	{
 		this.scene = scene;
+		scene.setRoot(root);
 	}
 
 	public final void setStage(Stage stage)
 	{
 		this.stage = stage;
+		stage.setScene(scene);
 	}
 
 	public final void setTitle(String title)
 	{
-		this.title = title;
+		if (stage != null)
+		{
+			this.title = title;
+			stage.setTitle(title);
+		}
 	}
 
 	public abstract void start(Stage stage);
