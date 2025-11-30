@@ -28,12 +28,6 @@ public abstract class FxHandler extends Application
 	private Stage stage;
 	private String title;
 
-	public FxHandler(String title)
-	{
-		this();
-		this.title = title;
-	}
-
 	public FxHandler()
 	{
 		center = new GridPane();
