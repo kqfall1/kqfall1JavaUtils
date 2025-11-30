@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.kqfall1</groupId>
     <artifactId>kqfall1JavaUtils</artifactId>
-    <version>1.2.7</version>
+    <version>1.2.8</version>
     <packaging>jar</packaging>
     <url>https://github.com/kqfall1/kqfall1JavaUtils</url>
     <properties>
