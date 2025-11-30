@@ -1,4 +1,4 @@
-package com.github.kqfall1.java.handlers.input;
+package com.github.kqfall1.java.handlers.javaFx;
 
 import javafx.application.Application;
 import javafx.scene.layout.*;
@@ -125,6 +125,11 @@ public abstract class FxHandler extends Application
 	public final void setScene(Scene scene)
 	{
 		this.scene = scene;
+	}
+
+	public final void setStage(Stage stage)
+	{
+		this.stage = stage;
 	}
 
 	public final void setTitle(String title)
