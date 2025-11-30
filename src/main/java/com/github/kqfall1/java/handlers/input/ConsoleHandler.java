@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Handles IO operations through an encapsulated {@code PrintStream} and {@code Scanner}.
+ * Handles user IO operations through an encapsulated {@code PrintStream} and {@code Scanner}.
  *
  * <p>
  * Error traps prevent client service until valid input is submitted. Encapsulate

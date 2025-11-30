@@ -7,9 +7,8 @@ import java.lang.reflect.Array;
  *
  * <p><strong>Contract:</strong> All methods in this class expect arrays that are
  * non-null and contain no null elements. Violations will result in
- * {@code NullPointerException}.</p>
- *
- * <p>Future expansion may add support for null-tolerant operations.</p>
+ * {@code NullPointerException}. Future expansion may add support for null-tolerant
+ * operations.</p>
  *
  * @author Quinn Keenan
  * @since 05/10/2025
