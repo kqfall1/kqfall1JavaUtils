@@ -1,4 +1,4 @@
-package com.github.kqfall1.java.validators;
+package com.github.kqfall1.java.managers;
 
 import com.github.kqfall1.java.enums.YesNoInput;
 import com.github.kqfall1.java.interfaces.inputters.NumberInputter;
@@ -6,7 +6,8 @@ import com.github.kqfall1.java.interfaces.inputters.StringInputter;
 import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
 
 /**
- * Provides an abstraction to use {@code Inputter}-implementing objects.
+ * Provides an abstraction to use {@code Inputter}-implementing objects
+ * (ie, {@code Handler} objects).
  *
  * <p>
  * Encapsulates multiple different {@code Inputter} sources, though they are immutable.
@@ -17,13 +18,13 @@ import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
  * @author Quinn Keenan
  * @since 24/10/2025
  */
-public final class InputValidator
+public final class InputManager
 {
 	private final NumberInputter numberInputter;
 	private final StringInputter stringInputter;
 	private final YesNoInputter yesNoInputter;
 
-	public InputValidator(NumberInputter numberInputter, StringInputter stringInputter, YesNoInputter yesNoInputter)
+	public InputManager(NumberInputter numberInputter, StringInputter stringInputter, YesNoInputter yesNoInputter)
 	{
 		this.numberInputter = numberInputter;
 		this.stringInputter = stringInputter;

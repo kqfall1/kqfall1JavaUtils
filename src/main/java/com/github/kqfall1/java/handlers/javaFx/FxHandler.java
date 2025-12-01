@@ -143,4 +143,22 @@ public abstract class FxHandler extends Application
 	}
 
 	public abstract void start(Stage stage);
+
+	@Override
+	public String toString()
+	{
+		return String.format(
+			"%s[center=%s,footer=%s,header=%s,left=%s,right=%s,root=%s,scene=%s,stage=%s,title=%s]",
+			getClass(),
+			getCenter(),
+			getFooter(),
+			getHeader(),
+			getLeft(),
+			getRight(),
+			getRoot(),
+			getScene(),
+			getStage(),
+			getTitle()
+		);
+	}
 }

@@ -7,7 +7,7 @@ import com.github.kqfall1.java.interfaces.inputters.StringInputter;
 import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
 import com.github.kqfall1.java.utils.CollectionConverter;
 import com.github.kqfall1.java.utils.StringUtils;
-import com.github.kqfall1.java.validators.InputValidator;
+import com.github.kqfall1.java.managers.InputManager;
 import javax.swing.JOptionPane;
 import java.util.Arrays;
 
@@ -47,7 +47,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 			try
 			{
 				inputDbl = Double.parseDouble(input);
-				InputValidator.validateNumber(inputDbl, "Input", lowerBound, upperBound);
+				InputManager.validateNumber(inputDbl, "Input", lowerBound, upperBound);
 				return inputDbl;
 			}
 			catch (IllegalArgumentException | NullPointerException e)
