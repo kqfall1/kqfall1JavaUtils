@@ -18,7 +18,7 @@ import java.util.Scanner;
  *
  * <p>
  * Error traps prevent client service until valid input is submitted. Encapsulate
- * {@code ConsoleHandler} into {@code InputValidator} rather than using objects of
+ * {@code ConsoleHandler} into {@code InputManager} rather than using objects of
  * this type directly.
  * </p>
  *

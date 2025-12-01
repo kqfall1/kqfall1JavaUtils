@@ -5,12 +5,14 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 /**
  * Handles user IO operations by extending {@code javafx.application.Application}
  * and providing a basic GUI for the end-user to interact with.
  *
  * <p>
- * Encapsulate {@code FxHandler} into {@code InputValidator} rather than using objects
+ * Encapsulate {@code FxHandler} into {@code InputManager} rather than using objects
  * of this type directly. Instantiate {@code stage} when implementing the {@code start}
  * method.
  * </p>
@@ -149,16 +151,16 @@ public abstract class FxHandler extends Application
 	{
 		return String.format(
 			"%s[center=%s,footer=%s,header=%s,left=%s,right=%s,root=%s,scene=%s,stage=%s,title=%s]",
-			getClass(),
-			getCenter(),
-			getFooter(),
-			getHeader(),
-			getLeft(),
-			getRight(),
-			getRoot(),
-			getScene(),
-			getStage(),
-			getTitle()
+			getClass().getName(),
+			getCenter() != null ? getCenter() : "null",
+			getFooter() != null ? getFooter() : "null",
+			getHeader() != null ? getHeader() : "null",
+			getLeft() != null ? getLeft() : "null",
+			getRight() != null ? getRight() : "null",
+			getRoot() != null ? getRoot() : "null",
+			getScene() != null ? getScene() : "null",
+			getStage() != null ? getStage() : "null",
+			getTitle() != null ? getTitle() : "null"
 		);
 	}
 }

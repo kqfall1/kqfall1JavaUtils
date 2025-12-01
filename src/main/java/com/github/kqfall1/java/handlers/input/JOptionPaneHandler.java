@@ -16,7 +16,7 @@ import java.util.Arrays;
  *
  * <p>
  * Error traps prevent client service until valid input is submitted. Encapsulate
- * {@code JOptionPaneHandler} into {@code InputValidator} rather than using objects of
+ * {@code JOptionPaneHandler} into {@code InputManager} rather than using objects of
  * this type directly.
  * </p>
  *
@@ -60,7 +60,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	/**
  	* @param prompt A string displayed to inform the actor of requested information.
  	* @param validStrings All acceptable strings.
- 	* @return A valid, user-inputted string.
+ 	* @return A valid, normalized, user-inputted string.
  	*/
 	@Override
 	public String getString(String prompt, String[] validStrings)

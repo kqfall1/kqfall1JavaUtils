@@ -68,9 +68,9 @@ public final class InputManager
 	{
 		return String.format("%s[numberInputter=%s,stringInputter=%s,yesNoInputter=%s]",
 			getClass().getName(),
-			numberInputter != null ? numberInputter : "null",
-			stringInputter != null ? stringInputter : "null",
-			yesNoInputter != null ?  yesNoInputter : "null"
+			getNumberInputter() != null ? getNumberInputter() : "null",
+			getStringInputter() != null ? getStringInputter() : "null",
+			getYesNoInputter() != null ?  getYesNoInputter() : "null"
 		);
 	}
 
