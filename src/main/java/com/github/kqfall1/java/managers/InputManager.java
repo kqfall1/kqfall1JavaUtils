@@ -32,10 +32,10 @@ public final class InputManager
 		this.yesNoInputter = yesNoInputter;
 	}
 
-	public double getNumber
+	public CompletableFuture<Double> getNumber
 	(String prompt, double lowerBound, double upperBound)
 	{
-		return numberInputter.getNumber(prompt, lowerBound, upperBound).join();
+		return numberInputter.getNumber(prompt, lowerBound, upperBound);
 	}
 
 	public NumberInputter getNumberInputter()
@@ -43,10 +43,10 @@ public final class InputManager
 		return numberInputter;
 	}
 
-	public String getString
+	public CompletableFuture<String> getString
 	(String prompt, String[] validStrings)
 	{
-		return stringInputter.getString(prompt, validStrings).join();
+		return stringInputter.getString(prompt, validStrings);
 	}
 
 	public StringInputter getStringInputter()
@@ -54,9 +54,9 @@ public final class InputManager
 		return stringInputter;
 	}
 
-	public YesNoInput getYesNo(String prompt)
+	public CompletableFuture<YesNoInput> getYesNo(String prompt)
 	{
-		return yesNoInputter.getYesNo(prompt).join();
+		return yesNoInputter.getYesNo(prompt);
 	}
 
 	public YesNoInputter getYesNoInputter()

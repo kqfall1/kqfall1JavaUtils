@@ -115,9 +115,9 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 
 		while (true)
 		{
-			input = promptAndRead(prompt);
+			input = StringUtils.normalizeLower(promptAndRead(prompt));
 
-			if (Arrays.asList(normalizedValidStrings).contains(StringUtils.normalizeLower(input)))
+			if (Arrays.asList(normalizedValidStrings).contains(input))
 			{
 				return CompletableFuture.completedFuture(input);
 			}
