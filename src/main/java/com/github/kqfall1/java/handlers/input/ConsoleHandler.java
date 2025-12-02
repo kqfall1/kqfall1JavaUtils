@@ -168,7 +168,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	@Override
 	public void showError(String message)
 	{
-		out.printf("\n%s\n[ERROR] %s\n%s\n",
+		out.printf("%s\n[ERROR] %s\n%s\n",
 			BOUNDARY,
 			message,
 			BOUNDARY
@@ -185,7 +185,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 				stacktrace.append(String.format("%s\n", stackTraceElem.toString())
 			));
 
-		out.printf("\n%s\n[EXCEPTION] %s Here is the stacktrace:\n\n%s%s\n",
+		out.printf("%s\n[EXCEPTION] %s Here is the stacktrace:\n\n%s%s\n",
 			BOUNDARY,
 			e.getMessage(),
 			stacktrace,
