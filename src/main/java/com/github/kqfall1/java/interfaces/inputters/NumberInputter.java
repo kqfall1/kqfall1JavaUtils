@@ -1,5 +1,7 @@
 package com.github.kqfall1.java.interfaces.inputters;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Defines a contract for numeric input from actors.
  * @author Quinn Keenan
@@ -8,5 +10,6 @@ package com.github.kqfall1.java.interfaces.inputters;
 @FunctionalInterface
 public interface NumberInputter
 {
-	double getNumber(String prompt, double lowerBound, double upperBound);
+	CompletableFuture<Double> getNumber
+	(String prompt, double lowerBound, double upperBound);
 }

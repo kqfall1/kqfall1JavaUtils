@@ -4,6 +4,7 @@ import com.github.kqfall1.java.enums.YesNoInput;
 import com.github.kqfall1.java.interfaces.inputters.NumberInputter;
 import com.github.kqfall1.java.interfaces.inputters.StringInputter;
 import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Provides an abstraction to use {@code Inputter}-implementing objects
@@ -34,7 +35,7 @@ public final class InputManager
 	public double getNumber
 	(String prompt, double lowerBound, double upperBound)
 	{
-		return numberInputter.getNumber(prompt, lowerBound, upperBound);
+		return numberInputter.getNumber(prompt, lowerBound, upperBound).join();
 	}
 
 	public NumberInputter getNumberInputter()
@@ -45,7 +46,7 @@ public final class InputManager
 	public String getString
 	(String prompt, String[] validStrings)
 	{
-		return stringInputter.getString(prompt, validStrings);
+		return stringInputter.getString(prompt, validStrings).join();
 	}
 
 	public StringInputter getStringInputter()
@@ -55,7 +56,7 @@ public final class InputManager
 
 	public YesNoInput getYesNo(String prompt)
 	{
-		return yesNoInputter.getYesNo(prompt);
+		return yesNoInputter.getYesNo(prompt).join();
 	}
 
 	public YesNoInputter getYesNoInputter()

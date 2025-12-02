@@ -10,6 +10,7 @@ import com.github.kqfall1.java.utils.StringUtils;
 import com.github.kqfall1.java.managers.InputManager;
 import javax.swing.JOptionPane;
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Handles user IO operations through {@code JOptionPane} panes.
@@ -32,10 +33,12 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
  	* @param prompt A string displayed to inform the actor of requested information.
  	* @param lowerBound The lowest acceptable number.
  	* @param upperBound The highest acceptable number.
- 	* @return A valid, user-inputted {@code double}.
+ 	* @return A completed {@code CompletableFuture} that encapsulates a valid,
+	 * user-inputted {@code Double}.
  	*/
 	@Override
-	public double getNumber(String prompt, double lowerBound, double upperBound)
+	public CompletableFuture<Double> getNumber
+	(String prompt, double lowerBound, double upperBound)
 	{
 		String input;
 		double inputDbl;
@@ -48,7 +51,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 			{
 				inputDbl = Double.parseDouble(input);
 				InputManager.validateNumber(inputDbl, "Input", lowerBound, upperBound);
-				return inputDbl;
+				return CompletableFuture.completedFuture(inputDbl);
 			}
 			catch (IllegalArgumentException | NullPointerException e)
 			{
@@ -60,10 +63,11 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	/**
  	* @param prompt A string displayed to inform the actor of requested information.
  	* @param validStrings All acceptable strings.
- 	* @return A valid, normalized, user-inputted string.
+ 	* @return A completed {@code CompletableFuture} that encapsulates a valid,
+	 * user-inputted {@code String}.
  	*/
 	@Override
-	public String getString(String prompt, String[] validStrings)
+	public CompletableFuture<String> getString(String prompt, String[] validStrings)
 	{
 		String input;
 		final String[] normalizedValidStrings = CollectionConverter.normalizeStringsLower(validStrings);
@@ -74,7 +78,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 
 			if (Arrays.asList(normalizedValidStrings).contains(input))
 			{
-				return input;
+				return CompletableFuture.completedFuture(input);
 			}
 			else
 			{
@@ -89,10 +93,11 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	 * to a {@code JOptionPane} {@code int} constant rather than a {@code String}.
  	* </p>
  	* @param prompt A string displayed to inform the actor of requested information.
- 	* @return {@code YesNoInput.YES} or {@code YesNoInput.NO}.
+ 	* @return A completed {@code CompletableFuture} that encapsulates either
+	 * {@code YesNoInput.YES} or {@code YesNoInput.NO}.
  	*/
 	@Override
-	public YesNoInput getYesNo(String prompt)
+	public CompletableFuture<YesNoInput> getYesNo(String prompt)
 	{
 		final int userInput = JOptionPane.showConfirmDialog(
 			null,
@@ -104,11 +109,11 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 
 		if (userInput == JOptionPane.YES_OPTION)
 		{
-			return YesNoInput.YES;
+			return CompletableFuture.completedFuture(YesNoInput.YES);
 		}
 		else
 		{
-			return YesNoInput.NO;
+			return CompletableFuture.completedFuture(YesNoInput.NO);
 		}
 	}
 
