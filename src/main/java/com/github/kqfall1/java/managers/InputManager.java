@@ -10,9 +10,9 @@ import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
  * (ie, {@code Handler} objects).
  *
  * <p>
- * Encapsulates multiple different {@code Inputter} sources, though they are immutable.
- * Provides public APIs for prompting users for various data types. Any of the
- * encapsulated fields may be null.
+ * Encapsulates multiple different {@code Inputter} sources. Provides public APIs
+ * for prompting users for various data types. Any of the encapsulated {@code Inputter}
+ * fields may be null.
  * </p>
  *
  * @author Quinn Keenan
@@ -20,9 +20,9 @@ import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
  */
 public final class InputManager
 {
-	private final NumberInputter numberInputter;
-	private final StringInputter stringInputter;
-	private final YesNoInputter yesNoInputter;
+	private NumberInputter numberInputter;
+	private StringInputter stringInputter;
+	private YesNoInputter yesNoInputter;
 
 	public InputManager(NumberInputter numberInputter, StringInputter stringInputter, YesNoInputter yesNoInputter)
 	{
@@ -31,9 +31,21 @@ public final class InputManager
 		this.yesNoInputter = yesNoInputter;
 	}
 
+	public double getNumber
+	(String prompt, double lowerBound, double upperBound)
+	{
+		return numberInputter.getNumber(prompt, lowerBound, upperBound);
+	}
+
 	public NumberInputter getNumberInputter()
 	{
 		return numberInputter;
+	}
+
+	public String getString
+	(String prompt, String[] validStrings)
+	{
+		return stringInputter.getString(prompt, validStrings);
 	}
 
 	public StringInputter getStringInputter()
@@ -41,26 +53,29 @@ public final class InputManager
 		return stringInputter;
 	}
 
+	public YesNoInput getYesNo(String prompt)
+	{
+		return yesNoInputter.getYesNo(prompt);
+	}
+
 	public YesNoInputter getYesNoInputter()
 	{
 		return yesNoInputter;
 	}
 
-	public double promptForNumber
-	(String prompt, double lowerBound, double upperBound)
+	public void setNumberInputter(NumberInputter inputter)
 	{
-		return numberInputter.getNumber(prompt, lowerBound, upperBound);
+		this.numberInputter = inputter;
 	}
 
-	public String promptForString
-	(String prompt, String[] validStrings)
+	public void setStringInputter(StringInputter inputter)
 	{
-		return stringInputter.getString(prompt, validStrings);
+		this.stringInputter = inputter;
 	}
 
-	public YesNoInput promptForYesNo(String prompt)
+	public void setYesNoInputter(YesNoInputter inputter)
 	{
-		return yesNoInputter.getYesNo(prompt);
+		this.yesNoInputter = inputter;
 	}
 
 	@Override
