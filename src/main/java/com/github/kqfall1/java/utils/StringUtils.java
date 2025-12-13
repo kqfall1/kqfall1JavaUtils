@@ -1,7 +1,7 @@
 package com.github.kqfall1.java.utils;
 
 /**
- * Static class. Provides abstractions for repetitive, string-related tasks.
+ * Static class. Provides abstractions for repetitive, {@code String}-related tasks.
  * @author Quinn Keenan
  * @since 24/10/2025
  */

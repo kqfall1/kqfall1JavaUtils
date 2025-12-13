@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * <p>
  * Encapsulates multiple different {@code Inputter} sources. Provides public APIs
  * for prompting users for various data types. Any of the encapsulated {@code Inputter}
- * fields may be null.
+ * fields may be {@code null}.
  * </p>
  *
  * @author Quinn Keenan

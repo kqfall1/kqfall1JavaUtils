@@ -68,22 +68,4 @@ public final class CollectionConverter
 
 		return values;
 	}
-
-	public static <T> T[] reverse(T[] arr)
-	{
-		int arrIndex;
-
-		@SuppressWarnings("unchecked")
-		T[] reverseArr = (T[]) Array.newInstance(
-			arr.getClass().getComponentType(),
-			arr.length
-		);
-
-		for (arrIndex = 0; arrIndex < arr.length; arrIndex++)
-		{
-			reverseArr[arrIndex] = arr[arr.length - 1 - arrIndex];
-		}
-
-		return reverseArr;
-	}
 }

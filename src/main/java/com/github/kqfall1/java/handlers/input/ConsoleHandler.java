@@ -45,7 +45,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	/**
  	* @param in The input {@code Scanner}.
  	* @param out The output {@code PrintStream}.
-	 * @throws NullPointerException if either {@code in} or {@code out} is null.
+	 * @throws NullPointerException if either {@code in} or {@code out} is {@code null}.
  	*/
 	public ConsoleHandler(Scanner in, PrintStream out)
 	{
@@ -64,7 +64,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
  	* Catching IllegalArgumentException also catches NumberFormatException thrown in parse
  	* operations due to inheritance.
  	* @param prompt A string displayed to inform the actor of requested information.
-	 *               A colon is displayed at the end of this parameter.
+	 * A colon is displayed at the end of this parameter.
  	* @param lowerBound The lowest acceptable number.
  	* @param upperBound The highest acceptable number.
 	 * @return A completed {@code CompletableFuture} that encapsulates a valid,

@@ -5,8 +5,6 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Objects;
-
 /**
  * Handles user IO operations by extending {@code javafx.application.Application}
  * and providing a basic GUI for the end-user to interact with.
@@ -16,6 +14,9 @@ import java.util.Objects;
  * of this type directly. Instantiate {@code stage} when implementing the {@code start}
  * method.
  * </p>
+ *
+ * @author Quinn Keenan
+ * @since 01/12/2025
  */
 public abstract class FxHandler extends Application
 {
