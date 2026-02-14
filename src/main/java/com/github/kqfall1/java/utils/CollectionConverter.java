@@ -1,7 +1,5 @@
 package com.github.kqfall1.java.utils;
 
-import java.lang.reflect.Array;
-
 /**
  * Static class. Provides abstractions for repetitive, collection-related tasks.
  *
