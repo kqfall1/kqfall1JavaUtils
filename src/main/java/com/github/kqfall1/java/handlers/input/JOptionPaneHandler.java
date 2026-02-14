@@ -8,9 +8,9 @@ import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
 import com.github.kqfall1.java.utils.CollectionConverter;
 import com.github.kqfall1.java.utils.StringUtils;
 import com.github.kqfall1.java.managers.InputManager;
-import javax.swing.JOptionPane;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import javax.swing.JOptionPane;
 
 /**
  * Handles user IO operations through {@code JOptionPane} panes.
