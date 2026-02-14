@@ -7,6 +7,6 @@ package com.github.kqfall1.java.interfaces;
  */
 public interface ErrorPresenter
 {
-	void showException(Exception e);
 	void showError(String message);
+	void showException(Exception e);
 }
