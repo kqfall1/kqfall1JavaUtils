@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Defines a contract for string input from actors.
+ *
  * @author Quinn Keenan
  * @since 24/10/2025
  */
