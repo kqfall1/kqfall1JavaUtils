@@ -17,11 +17,14 @@ public final class LoggerUtils
 	public static Logger newFileLogger(String filePath, String name, boolean append)
 	throws IOException
 	{
+		assert name != null && !name.isBlank() : "name == null || name.isBlank()";
+
 		final var handler = new FileHandler(filePath, append);
 		final var logger = Logger.getLogger(name);
 		handler.setFormatter(new SimpleFormatter());
 		logger.addHandler(handler);
 		logger.setUseParentHandlers(false);
+
 		return logger;
 	}
 }
