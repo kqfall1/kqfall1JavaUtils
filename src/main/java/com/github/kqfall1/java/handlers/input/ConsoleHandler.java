@@ -1,13 +1,14 @@
 package com.github.kqfall1.java.handlers.input;
 
 import com.github.kqfall1.java.enums.YesNoInput;
-import com.github.kqfall1.java.interfaces.ErrorPresenter;
+import com.github.kqfall1.java.interfaces.FailurePresenter;
 import com.github.kqfall1.java.interfaces.inputters.NumberInputter;
 import com.github.kqfall1.java.interfaces.inputters.StringInputter;
 import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
 import com.github.kqfall1.java.utils.CollectionConverter;
 import com.github.kqfall1.java.utils.StringUtils;
 import com.github.kqfall1.java.managers.InputManager;
+import java.awt.*;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -27,7 +28,7 @@ import java.util.Scanner;
  * @since 24/10/2025
  */
 public final class ConsoleHandler
-implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
+implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 {
 	/**
  	* Used for error display formatting.
@@ -89,7 +90,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			catch (IllegalArgumentException | NullPointerException e)
 			{
-				showException(e);
+				presentMessage(e.getMessage());
 			}
 		}
 	}
@@ -123,7 +124,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			else
 			{
-				showError(String.format("Input \"%s\" is invalid.", input));
+				presentMessage(String.format("Input \"%s\" is invalid.", input));
 			}
 		}
 	}
@@ -151,7 +152,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 				return CompletableFuture.completedFuture(YesNoInput.NO);
 			}
 
-			showError(String.format("Input \"%s\" is invalid.", input));
+			presentMessage(String.format("Input \"%s\" is invalid.", input));
 		}
 	}
 
@@ -166,29 +167,11 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	 *                A period is displayed at the end of this parameter.
  	*/
 	@Override
-	public void showError(String message)
+	public void presentMessage(String message)
 	{
-		out.printf("%s\n[ERROR] %s\n%s\n",
+		out.printf("%s\n%s\n%s\n",
 			BOUNDARY,
 			message,
-			BOUNDARY
-		);
-	}
-
-	@Override
-	public void showException(Exception e)
-	{
-		final StringBuilder stacktrace = new StringBuilder();
-
-		Arrays.stream(e.getStackTrace())
-			.forEach(stackTraceElem ->
-				stacktrace.append(String.format("%s\n", stackTraceElem.toString())
-			));
-
-		out.printf("%s\n[EXCEPTION] %s Here is the stacktrace:\n\n%s%s\n",
-			BOUNDARY,
-			e.getMessage(),
-			stacktrace,
 			BOUNDARY
 		);
 	}
@@ -202,4 +185,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 			getOut()
 		);
 	}
+
+	@Override
+	public void updateGui(Component... components) {}
 }

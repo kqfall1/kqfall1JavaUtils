@@ -1,13 +1,14 @@
 package com.github.kqfall1.java.handlers.input;
 
 import com.github.kqfall1.java.enums.YesNoInput;
-import com.github.kqfall1.java.interfaces.ErrorPresenter;
+import com.github.kqfall1.java.interfaces.FailurePresenter;
 import com.github.kqfall1.java.interfaces.inputters.NumberInputter;
 import com.github.kqfall1.java.interfaces.inputters.StringInputter;
 import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
+import com.github.kqfall1.java.managers.InputManager;
 import com.github.kqfall1.java.utils.CollectionConverter;
 import com.github.kqfall1.java.utils.StringUtils;
-import com.github.kqfall1.java.managers.InputManager;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import javax.swing.JOptionPane;
@@ -25,7 +26,7 @@ import javax.swing.JOptionPane;
  * @since 05/10/2025
  */
 public final class JOptionPaneHandler
-implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
+implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 {
 	/**
 	 * Catching IllegalArgumentException also catches NumberFormatException thrown in parse
@@ -55,7 +56,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			catch (IllegalArgumentException | NullPointerException e)
 			{
-				showException(e);
+				presentMessage(e.getMessage());
 			}
 		}
 	}
@@ -82,7 +83,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			else
 			{
-				showError(String.format("Input \"%s\" is invalid.", input));
+				presentMessage(String.format("Input \"%s\" is invalid.", input));
 			}
 		}
 	}
@@ -118,7 +119,7 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	}
 
 	@Override
-	public void showError(String message)
+	public void presentMessage(String message)
 	{
 		JOptionPane.showMessageDialog(
 			null,
@@ -129,13 +130,5 @@ implements ErrorPresenter, NumberInputter, StringInputter, YesNoInputter
 	}
 
 	@Override
-	public void showException(Exception e)
-	{
-		JOptionPane.showMessageDialog(
-			null,
-			e.getMessage(),
-			"Error",
-			JOptionPane.ERROR_MESSAGE
-		);
-	}
+	public void updateGui(Component... components) {}
 }
