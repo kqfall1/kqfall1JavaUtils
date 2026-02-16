@@ -56,7 +56,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			catch (IllegalArgumentException | NullPointerException e)
 			{
-				presentMessage(e.getMessage());
+				presentFailureMessage(e.getMessage());
 			}
 		}
 	}
@@ -83,7 +83,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			else
 			{
-				presentMessage(String.format("Input \"%s\" is invalid.", input));
+				presentFailureMessage(String.format("Input \"%s\" is invalid.", input));
 			}
 		}
 	}
@@ -119,7 +119,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	}
 
 	@Override
-	public void presentMessage(String message)
+	public void presentFailureMessage(String message)
 	{
 		JOptionPane.showMessageDialog(
 			null,
@@ -130,5 +130,5 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	}
 
 	@Override
-	public void updateGui(Component... components) {}
+	public void updateGuiAfterFailure(Component... components) {}
 }

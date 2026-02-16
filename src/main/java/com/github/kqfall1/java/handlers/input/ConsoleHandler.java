@@ -90,7 +90,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			catch (IllegalArgumentException | NullPointerException e)
 			{
-				presentMessage(e.getMessage());
+				presentFailureMessage(e.getMessage());
 			}
 		}
 	}
@@ -124,7 +124,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			else
 			{
-				presentMessage(String.format("Input \"%s\" is invalid.", input));
+				presentFailureMessage(String.format("Input \"%s\" is invalid.", input));
 			}
 		}
 	}
@@ -152,7 +152,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 				return CompletableFuture.completedFuture(YesNoInput.NO);
 			}
 
-			presentMessage(String.format("Input \"%s\" is invalid.", input));
+			presentFailureMessage(String.format("Input \"%s\" is invalid.", input));
 		}
 	}
 
@@ -167,7 +167,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	 *                A period is displayed at the end of this parameter.
  	*/
 	@Override
-	public void presentMessage(String message)
+	public void presentFailureMessage(String message)
 	{
 		out.printf("%s\n%s\n%s\n",
 			BOUNDARY,
@@ -187,5 +187,5 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	}
 
 	@Override
-	public void updateGui(Component... components) {}
+	public void updateGuiAfterFailure(Component... components) {}
 }

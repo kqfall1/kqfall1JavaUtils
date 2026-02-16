@@ -10,6 +10,6 @@ import java.awt.*;
  */
 public interface FailurePresenter
 {
-	void presentMessage(String message);
-	void updateGui(Component... components);
+	void presentFailureMessage(String message);
+	void updateGuiAfterFailure(Component... components);
 }
