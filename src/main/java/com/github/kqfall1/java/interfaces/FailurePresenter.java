@@ -8,8 +8,8 @@ import java.awt.*;
  * @author Quinn Keenan
  * @since 24/10/2025
  */
+@FunctionalInterface
 public interface FailurePresenter
 {
-	void presentFailureMessage(String message);
-	void updateGuiAfterFailure(Component... components);
+	void presentFailure(String message, Component... components);
 }

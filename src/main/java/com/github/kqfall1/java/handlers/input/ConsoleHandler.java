@@ -90,7 +90,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			catch (IllegalArgumentException | NullPointerException e)
 			{
-				presentFailureMessage(e.getMessage());
+				presentFailure(e.getMessage());
 			}
 		}
 	}
@@ -124,7 +124,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 			}
 			else
 			{
-				presentFailureMessage(String.format("Input \"%s\" is invalid.", input));
+				presentFailure(String.format("Input \"%s\" is invalid.", input));
 			}
 		}
 	}
@@ -152,7 +152,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 				return CompletableFuture.completedFuture(YesNoInput.NO);
 			}
 
-			presentFailureMessage(String.format("Input \"%s\" is invalid.", input));
+			presentFailure(String.format("Input \"%s\" is invalid.", input));
 		}
 	}
 
@@ -160,20 +160,6 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	{
 		out.printf("%s: ", prompt);
 		return in.nextLine();
-	}
-
-	/**
- 	* @param message A string displayed to inform the actor of an error.
-	 *                A period is displayed at the end of this parameter.
- 	*/
-	@Override
-	public void presentFailureMessage(String message)
-	{
-		out.printf("%s\n%s\n%s\n",
-			BOUNDARY,
-			message,
-			BOUNDARY
-		);
 	}
 
 	@Override
@@ -187,5 +173,12 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	}
 
 	@Override
-	public void updateGuiAfterFailure(Component... components) {}
+	public void presentFailure(String message, Component... components)
+	{
+		out.printf("%s\n%s\n%s\n",
+			BOUNDARY,
+			message,
+			BOUNDARY
+		);
+	}
 }
