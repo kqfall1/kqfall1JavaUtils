@@ -1,7 +1,8 @@
 package com.github.kqfall1.java.enums;
 
 /**
- * Normalized binary input for yes/no decisions.
+ * Normalized binary input for yes or no decisions.
+ *
  * @author Quinn Keenan
  * @since 06/10/2025
  */
