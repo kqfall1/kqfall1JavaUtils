@@ -38,8 +38,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	 * user-inputted {@code Double}.
  	*/
 	@Override
-	public CompletableFuture<Double> getNumber
-	(String prompt, double lowerBound, double upperBound)
+	public CompletableFuture<Double> getNumber(String prompt, double lowerBound, double upperBound)
 	{
 		String input;
 		double inputDbl;

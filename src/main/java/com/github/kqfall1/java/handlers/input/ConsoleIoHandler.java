@@ -9,46 +9,44 @@ import com.github.kqfall1.java.utils.CollectionConverter;
 import com.github.kqfall1.java.utils.StringUtils;
 import com.github.kqfall1.java.managers.InputManager;
 import java.awt.*;
-import java.io.PrintStream;
-import java.util.Arrays;
+import java.io.PrintWriter;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.Objects;
-import java.util.Scanner;
 
 /**
- * Handles user IO operations through an encapsulated {@code PrintStream} and {@code Scanner}.
+ * Handles user IO operations through an encapsulated {@code Scanner} and {@code PrintWriter}.
  *
  * <p>
  * Error traps prevent client service until valid input is submitted. Encapsulate
- * {@code ConsoleHandler} into {@code InputManager} rather than using objects of
+ * {@code ConsoleIoHandler} into {@code InputManager} rather than using objects of
  * this type directly.
  * </p>
  *
  * @author Quinn Keenan
  * @since 24/10/2025
  */
-public final class ConsoleHandler
+public final class ConsoleIoHandler
 implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 {
 	/**
  	* Used for error display formatting.
  	*/
-	private static final String BOUNDARY = "--------------------------------------------------------------------------------------------------------------------------------";
+	private static final String BOUNDARY = "-".repeat(128);
 	private final Scanner in;
-	private final PrintStream out;
+	private final PrintWriter out;
 
-	public ConsoleHandler()
+	public ConsoleIoHandler()
 	{
 		in = new Scanner(System.in);
-		out = System.out;
+		out = new PrintWriter(System.out, true);
 	}
 
 	/**
  	* @param in The input {@code Scanner}.
- 	* @param out The output {@code PrintStream}.
+ 	* @param out The output {@code PrintWriter}.
 	 * @throws NullPointerException if either {@code in} or {@code out} is {@code null}.
  	*/
-	public ConsoleHandler(Scanner in, PrintStream out)
+	public ConsoleIoHandler(Scanner in, PrintWriter out)
 	{
 		Objects.requireNonNull(in, "\"in\" is null.");
 		this.in = in;
@@ -62,9 +60,9 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	}
 
 	/**
- 	* Catching IllegalArgumentException also catches NumberFormatException thrown in parse
+ 	* Catching {@code IllegalArgumentException} also catches {@code NumberFormatException} thrown in parse
  	* operations due to inheritance.
- 	* @param prompt A string displayed to inform the actor of requested information.
+ 	* @param prompt A {@code String} displayed to inform the actor of requested information.
 	 * A colon is displayed at the end of this parameter.
  	* @param lowerBound The lowest acceptable number.
  	* @param upperBound The highest acceptable number.
@@ -72,21 +70,17 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	 * user-inputted {@code Double}.
  	*/
 	@Override
-	public CompletableFuture<Double> getNumber
-	(String prompt, double lowerBound, double upperBound)
+	public CompletableFuture<Double> getNumber(String prompt, double lowerBound, double upperBound)
 	{
-		String input;
-		double inputDbl;
-
 		while (true)
 		{
-			input = promptAndRead(prompt);
+			final var input = promptAndRead(prompt);
 
 			try
 			{
-				inputDbl = Double.parseDouble(input);
-				InputManager.validateNumber(inputDbl, "Input", lowerBound, upperBound);
-				return CompletableFuture.completedFuture(inputDbl);
+				final var parsedInput = Double.parseDouble(input);
+				InputManager.validateNumber(parsedInput, "parsedInput", lowerBound, upperBound);
+				return CompletableFuture.completedFuture(parsedInput);
 			}
 			catch (IllegalArgumentException | NullPointerException e)
 			{
@@ -95,30 +89,28 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 		}
 	}
 
-	public PrintStream getOut()
+	public PrintWriter getOut()
 	{
 		return out;
 	}
 
 	/**
- 	* @param prompt A string displayed to inform the actor of requested information.
+ 	* @param prompt A {@code String} displayed to inform the actor of requested information.
 	 *               A colon is displayed at the end of this parameter.
- 	* @param validStrings All acceptable strings.
+ 	* @param validStrings All acceptable {@code String} values.
 	 * @return A completed {@code CompletableFuture} that encapsulates a valid,
 	 * user-inputted {@code String}.
  	*/
 	@Override
-	public CompletableFuture<String> getString
-	(String prompt, String[] validStrings)
+	public CompletableFuture<String> getString(String prompt, String[] validStrings)
 	{
-		String input;
-		final String[] normalizedValidStrings = CollectionConverter.normalizeStringsLower(validStrings);
+		final var normalizedValidStrings = Set.of(CollectionConverter.normalizeStringsLower(validStrings));
 
 		while (true)
 		{
-			input = StringUtils.normalizeLower(promptAndRead(prompt));
+			final var input = StringUtils.normalizeLower(promptAndRead(prompt));
 
-			if (Arrays.asList(normalizedValidStrings).contains(input))
+			if (normalizedValidStrings.contains(input))
 			{
 				return CompletableFuture.completedFuture(input);
 			}
@@ -130,46 +122,25 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	}
 
 	/**
- 	* @param prompt A string displayed to inform the actor of requested information.
+ 	* @param prompt A {@code String} displayed to inform the actor of requested information.
  	* @return A completed {@code CompletableFuture} that encapsulates either
 	 * {@code YesNoInput.YES} or {@code YesNoInput.NO}.
  	*/
 	@Override
 	public CompletableFuture<YesNoInput> getYesNo(String prompt)
 	{
-		String input;
-
 		while (true)
 		{
-			input = promptAndRead(prompt);
+			final var input = promptAndRead(prompt);
+			final var parsedInput = YesNoInput.of(input);
 
-			if (StringUtils.normalizeLower(input).equals("yes"))
+			if (parsedInput.isPresent())
 			{
-				return CompletableFuture.completedFuture(YesNoInput.YES);
-			}
-			else if (StringUtils.normalizeLower(input).equals("no"))
-			{
-				return CompletableFuture.completedFuture(YesNoInput.NO);
+				return CompletableFuture.completedFuture(parsedInput.get());
 			}
 
 			presentFailure(String.format("Input \"%s\" is invalid.", input));
 		}
-	}
-
-	private String promptAndRead(String prompt)
-	{
-		out.printf("%s: ", prompt);
-		return in.nextLine();
-	}
-
-	@Override
-	public String toString()
-	{
-		return String.format("%s[in=%s,out=%s]",
-			getClass().getName(),
-			getIn(),
-			getOut()
-		);
 	}
 
 	@Override
@@ -179,6 +150,27 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 			BOUNDARY,
 			message,
 			BOUNDARY
+		);
+	}
+
+	/**
+	 * Prompts the actor for input by printing {@code prompt}; accepts the next line of input.
+	 * @param prompt A {@code String} to be displayed to inform the actor of requested information.
+	 * @return The next line of input from the actor.
+	 */
+	private String promptAndRead(String prompt)
+	{
+		getOut().printf("%s: ", prompt);
+		return getIn().nextLine().trim();
+	}
+
+	@Override
+	public String toString()
+	{
+		return String.format("%s[in=%s,out=%s]",
+			getClass().getName(),
+			getIn(),
+			getOut()
 		);
 	}
 }
