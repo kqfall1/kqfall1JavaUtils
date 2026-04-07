@@ -1,4 +1,4 @@
-package com.github.kqfall1.java.handlers.javaFx;
+package com.github.kqfall1.java.frameworks.javafx;
 
 import javafx.application.Application;
 import javafx.scene.layout.*;
@@ -6,22 +6,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Handles user IO operations by extending {@code javafx.application.Application}
- * and providing a basic GUI for the end-user to interact with.
+ * Extends {@code Application} and provides a GUI skeleton to be built upon.
  *
- * <p>
- * Encapsulate {@code FxHandler} into {@code InputManager} rather than using objects
- * of this type directly. Instantiate {@code stage} when implementing the {@code start}
- * method.
- * </p>
+ * <p>Instantiate {@code stage} when implementing the {@code start} method.</p>
  *
  * @author Quinn Keenan
  * @since 01/12/2025
  */
-public abstract class FxHandler extends Application
+public abstract class BaseApplication extends Application
 {
 	private GridPane center;
-	private static final String DEFAULT_TITLE = "FxHandler";
+	private static final String DEFAULT_TITLE = "BaseApplication";
 	private HBox footer;
 	private HBox header;
 	private GridPane left;
@@ -31,7 +26,7 @@ public abstract class FxHandler extends Application
 	private Stage stage;
 	private String title;
 
-	public FxHandler()
+	public BaseApplication()
 	{
 		center = new GridPane();
 		root = new BorderPane();
@@ -145,7 +140,16 @@ public abstract class FxHandler extends Application
 		}
 	}
 
-	public abstract void start(Stage stage);
+	/**
+	 * The main entry point for all JavaFX applications.
+	 *
+	 * <p>The {@code start} method is called after the {@code Application.init} method has returned, and after the
+	 * system is ready for the application to begin running.</p>
+	 * @param primaryStage the primary {@code Stage} for this application, onto which the application {@code Scene} can be set.
+	 * The primary {@code Stage} will be embedded in the browser if the application was launched as an applet. Applications may
+	 * create other {@code Stage} objects, if needed, but they will not be a primary {@code Stage} and will not be embedded in the browser.
+	 */
+	public abstract void start(Stage primaryStage);
 
 	@Override
 	public String toString()

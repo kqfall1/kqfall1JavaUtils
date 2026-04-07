@@ -1,5 +1,6 @@
 package com.github.kqfall1.java.interfaces.inputters;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -11,5 +12,5 @@ import java.util.concurrent.CompletableFuture;
 @FunctionalInterface
 public interface StringInputter
 {
-	CompletableFuture<String> getString (String prompt, String[] validStrings);
+	CompletableFuture<String> getString(Optional<String> prompt, Optional<String[]> validStrings);
 }

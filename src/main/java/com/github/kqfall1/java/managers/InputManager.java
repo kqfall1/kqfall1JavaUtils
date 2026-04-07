@@ -5,18 +5,16 @@ import com.github.kqfall1.java.interfaces.inputters.NumberInputter;
 import com.github.kqfall1.java.interfaces.inputters.StringInputter;
 import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
 import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 
 /**
- * Provides an abstraction to use {@code Inputter}-implementing objects
- * (ie, {@code Handler} objects).
+ * Provides an abstraction to use {@code Inputter}-implementing objects.
  *
- * <p>
- * Encapsulates multiple different {@code Inputter} sources. Provides public APIs
+ * <p>Encapsulates multiple different {@code Inputter} sources. Provides public APIs
  * for prompting users for various data types. Any of the encapsulated {@code Inputter}
- * fields may be {@code null}.
- * </p>
+ * fields may be {@code null}.</p>
  *
- * @author Quinn Keenan
+ * @author kqfall1
  * @since 24/10/2025
  */
 public final class InputManager
@@ -32,8 +30,7 @@ public final class InputManager
 		this.yesNoInputter = yesNoInputter;
 	}
 
-	public CompletableFuture<Double> getNumber
-	(String prompt, double lowerBound, double upperBound)
+	public CompletableFuture<Double> getNumber(Optional<String> prompt, double lowerBound, double upperBound)
 	{
 		return numberInputter.getNumber(prompt, lowerBound, upperBound);
 	}
@@ -43,8 +40,7 @@ public final class InputManager
 		return numberInputter;
 	}
 
-	public CompletableFuture<String> getString
-	(String prompt, String[] validStrings)
+	public CompletableFuture<String> getString(Optional<String> prompt, Optional<String[]> validStrings)
 	{
 		return stringInputter.getString(prompt, validStrings);
 	}
@@ -54,7 +50,7 @@ public final class InputManager
 		return stringInputter;
 	}
 
-	public CompletableFuture<YesNoInput> getYesNo(String prompt)
+	public CompletableFuture<YesNoInput> getYesNo(Optional<String> prompt)
 	{
 		return yesNoInputter.getYesNo(prompt);
 	}
@@ -98,8 +94,7 @@ public final class InputManager
  	* @param upperBound The highest acceptable number.
 	 * @throws IllegalArgumentException when {@code num} is out of bounds.
  	*/
-	public static void validateNumber
-	(double num, String numName, double lowerBound, double upperBound)
+	public static void validateNumber(double num, String numName, double lowerBound, double upperBound)
 	{
 		if (num < lowerBound || num > upperBound)
 		{

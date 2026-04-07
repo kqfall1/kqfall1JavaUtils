@@ -2,6 +2,7 @@ package com.github.kqfall1.java.interfaces.inputters;
 
 import com.github.kqfall1.java.enums.YesNoInput;
 import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 
 /**
  * Defines a contract for {@code YesNoInput} from actors.
@@ -12,5 +13,5 @@ import java.util.concurrent.CompletableFuture;
 @FunctionalInterface
 public interface YesNoInputter
 {
-	CompletableFuture<YesNoInput> getYesNo (String prompt);
+	CompletableFuture<YesNoInput> getYesNo (Optional<String> prompt);
 }

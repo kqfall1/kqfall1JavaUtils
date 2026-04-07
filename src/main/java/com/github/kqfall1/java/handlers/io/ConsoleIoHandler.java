@@ -1,4 +1,4 @@
-package com.github.kqfall1.java.handlers.input;
+package com.github.kqfall1.java.handlers.io;
 
 import com.github.kqfall1.java.enums.YesNoInput;
 import com.github.kqfall1.java.interfaces.FailurePresenter;
@@ -6,7 +6,6 @@ import com.github.kqfall1.java.interfaces.inputters.NumberInputter;
 import com.github.kqfall1.java.interfaces.inputters.StringInputter;
 import com.github.kqfall1.java.interfaces.inputters.YesNoInputter;
 import com.github.kqfall1.java.utils.CollectionConverter;
-import com.github.kqfall1.java.utils.StringUtils;
 import com.github.kqfall1.java.managers.InputManager;
 import java.awt.*;
 import java.io.PrintWriter;
@@ -16,22 +15,20 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Handles user IO operations through an encapsulated {@code Scanner} and {@code PrintWriter}.
  *
- * <p>
- * Error traps prevent client service until valid input is submitted. Encapsulate
+ * <p>Error traps prevent client service until valid input is submitted. Encapsulate
  * {@code ConsoleIoHandler} into {@code InputManager} rather than using objects of
- * this type directly.
- * </p>
+ * this type directly.</p>
  *
  * @author Quinn Keenan
  * @since 24/10/2025
  */
-public final class ConsoleIoHandler
-implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
+public final class ConsoleIoHandler implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 {
 	/**
  	* Used for error display formatting.
  	*/
 	private static final String BOUNDARY = "-".repeat(128);
+	private static final String DEFAULT_PROMPT = "Please provide input";
 	private final Scanner in;
 	private final PrintWriter out;
 
@@ -49,8 +46,8 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	public ConsoleIoHandler(Scanner in, PrintWriter out)
 	{
 		Objects.requireNonNull(in, "\"in\" is null.");
-		this.in = in;
 		Objects.requireNonNull(out, "\"out\" is null.");
+		this.in = in;
 		this.out = out;
 	}
 
@@ -66,19 +63,18 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	 * A colon is displayed at the end of this parameter.
  	* @param lowerBound The lowest acceptable number.
  	* @param upperBound The highest acceptable number.
-	 * @return A completed {@code CompletableFuture} that encapsulates a valid,
-	 * user-inputted {@code Double}.
+	 * @return A completed {@code CompletableFuture} that encapsulates a valid, user-inputted {@code Double}.
  	*/
 	@Override
-	public CompletableFuture<Double> getNumber(String prompt, double lowerBound, double upperBound)
+	public CompletableFuture<Double> getNumber(Optional<String> prompt, double lowerBound, double upperBound)
 	{
 		while (true)
 		{
-			final var input = promptAndRead(prompt);
+			final var input = promptAndRead(prompt.orElse(DEFAULT_PROMPT));
 
 			try
 			{
-				final var parsedInput = Double.parseDouble(input);
+				final var parsedInput = Double.parseDouble(input.trim());
 				InputManager.validateNumber(parsedInput, "parsedInput", lowerBound, upperBound);
 				return CompletableFuture.completedFuture(parsedInput);
 			}
@@ -98,17 +94,16 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
  	* @param prompt A {@code String} displayed to inform the actor of requested information.
 	 *               A colon is displayed at the end of this parameter.
  	* @param validStrings All acceptable {@code String} values.
-	 * @return A completed {@code CompletableFuture} that encapsulates a valid,
-	 * user-inputted {@code String}.
+	 * @return A completed {@code CompletableFuture} that encapsulates a valid, user-inputted {@code String}.
  	*/
 	@Override
-	public CompletableFuture<String> getString(String prompt, String[] validStrings)
+	public CompletableFuture<String> getString(Optional<String> prompt, Optional<String[]> validStrings)
 	{
-		final var normalizedValidStrings = Set.of(CollectionConverter.normalizeStringsLower(validStrings));
-
 		while (true)
 		{
-			final var input = StringUtils.normalizeLower(promptAndRead(prompt));
+			final var input = promptAndRead(prompt.orElse(DEFAULT_PROMPT));
+			final var normalizedValidStrings
+					= Set.of(CollectionConverter.normalizeStringsLower(validStrings.orElse(new String[] { input.trim() })));
 
 			if (normalizedValidStrings.contains(input))
 			{
@@ -123,16 +118,15 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 
 	/**
  	* @param prompt A {@code String} displayed to inform the actor of requested information.
- 	* @return A completed {@code CompletableFuture} that encapsulates either
-	 * {@code YesNoInput.YES} or {@code YesNoInput.NO}.
+ 	* @return A completed {@code CompletableFuture} that encapsulates either {@code YesNoInput.YES} or {@code YesNoInput.NO}.
  	*/
 	@Override
-	public CompletableFuture<YesNoInput> getYesNo(String prompt)
+	public CompletableFuture<YesNoInput> getYesNo(Optional<String> prompt)
 	{
 		while (true)
 		{
-			final var input = promptAndRead(prompt);
-			final var parsedInput = YesNoInput.of(input);
+			final var input = promptAndRead(prompt.orElse(DEFAULT_PROMPT));
+			final var parsedInput = YesNoInput.of(input.trim());
 
 			if (parsedInput.isPresent())
 			{
@@ -161,7 +155,7 @@ implements FailurePresenter, NumberInputter, StringInputter, YesNoInputter
 	private String promptAndRead(String prompt)
 	{
 		getOut().printf("%s: ", prompt);
-		return getIn().nextLine().trim();
+		return getIn().nextLine();
 	}
 
 	@Override

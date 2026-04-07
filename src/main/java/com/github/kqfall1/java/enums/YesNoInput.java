@@ -1,6 +1,8 @@
 package com.github.kqfall1.java.enums;
 
 import com.github.kqfall1.java.utils.StringUtils;
+
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -15,6 +17,8 @@ public enum YesNoInput
 
 	public static Optional<YesNoInput> of(String input)
 	{
+		Objects.requireNonNull(input, "\"input\" is null.");
+
 		try
 		{
 			return Optional.of(YesNoInput.valueOf(StringUtils.normalizeUpper(input).trim()));
