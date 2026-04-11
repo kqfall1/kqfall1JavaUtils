@@ -57,7 +57,6 @@ public final class ValidatedJTextField extends JTextField implements NumberInput
     public CompletableFuture<YesNoInput> getYesNo(Optional<String> prompt)
     {
         final var input = getText();
-        final var parsedInput = YesNoInput.of(input.trim());
-        return parsedInput.map(CompletableFuture::completedFuture).orElseGet(() -> fail(input));
+        return YesNoInput.of(input.trim()).map(CompletableFuture::completedFuture).orElseGet(() -> fail(input));
     }
 }

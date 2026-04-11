@@ -1,7 +1,6 @@
 package com.github.kqfall1.java.enums;
 
 import com.github.kqfall1.java.utils.StringUtils;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -13,7 +12,7 @@ import java.util.Optional;
  */
 public enum YesNoInput
 {
-	NO, YES;
+	YES, NO;
 
 	public static Optional<YesNoInput> of(String input)
 	{
@@ -21,7 +20,7 @@ public enum YesNoInput
 
 		try
 		{
-			return Optional.of(YesNoInput.valueOf(StringUtils.normalizeUpper(input).trim()));
+			return Optional.of(YesNoInput.valueOf(StringUtils.normalizeUpper(input.trim())));
 		}
 		catch (IllegalArgumentException e)
 		{
