@@ -23,6 +23,15 @@ public final class ValidatedJTextField extends JTextField implements NumberInput
         return CompletableFuture.failedFuture(new IllegalArgumentException(String.format("Input \"%s\" is invalid.", input)));
     }
 
+    /**
+     * Catching {@code IllegalArgumentException} also catches {@code NumberFormatException} thrown in parse
+     * operations due to inheritance.
+     * @param prompt Irrelevant in this context.
+     * @param lowerBound The lowest acceptable number.
+     * @param upperBound The highest acceptable number.
+     * @return A completed {@code CompletableFuture} that encapsulates a valid, user-inputted {@code Double} or a
+     *         {@code CompleteableFuture} that has been completed exceptionally.
+     */
     @Override
     public CompletableFuture<Double> getNumber(Optional<String> prompt, double lowerBound, double upperBound)
     {
@@ -40,6 +49,12 @@ public final class ValidatedJTextField extends JTextField implements NumberInput
         }
     }
 
+    /**
+     * @param prompt Irrelevant in this context.
+     * @param validStrings All acceptable {@code String} values.
+     * @return A completed {@code CompletableFuture} that encapsulates a valid, user-inputted {@code String} or a
+     *         {@code CompleteableFuture} that has been completed exceptionally.
+     */
     @Override
     public CompletableFuture<String> getString(Optional<String> prompt, Optional<String[]> validStrings)
     {
@@ -53,6 +68,11 @@ public final class ValidatedJTextField extends JTextField implements NumberInput
         return fail(input);
     }
 
+    /**
+     * @param prompt Irrelevant in this context.
+     * @return A completed {@code CompletableFuture} that encapsulates either {@code YesNoInput.YES} or {@code YesNoInput.NO} or a
+     *         {@code CompleteableFuture} that has been completed exceptionally.
+     */
     @Override
     public CompletableFuture<YesNoInput> getYesNo(Optional<String> prompt)
     {

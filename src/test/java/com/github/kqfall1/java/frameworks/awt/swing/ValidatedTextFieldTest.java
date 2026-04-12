@@ -2,11 +2,11 @@ package com.github.kqfall1.java.frameworks.awt.swing;
 
 import com.github.kqfall1.java.enums.YesNoInput;
 import com.github.kqfall1.java.interfaces.inputters.InputterTestUtils;
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import java.util.Optional;
 
 public final class ValidatedTextFieldTest
 {

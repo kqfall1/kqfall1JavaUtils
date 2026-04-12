@@ -2,7 +2,6 @@ package com.github.kqfall1.java.frameworks.awt.swing;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Objects;
 import java.util.Optional;
 import javax.swing.*;
 
@@ -37,7 +36,9 @@ public final class SwingUtils
         }
         else
         {
-            return Optional.ofNullable((JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, (Component) e.getSource()));
+            return Optional.ofNullable(SwingUtilities.getAncestorOfClass(JFrame.class, (Component) e.getSource()))
+                .filter(container -> container instanceof JFrame)
+                .map(jFrameContainer -> (JFrame) jFrameContainer);
         }
     }
 }

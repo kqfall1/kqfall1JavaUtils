@@ -1,7 +1,7 @@
 package com.github.kqfall1.java.interfaces.inputters;
 
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 
 /**
  * Defines a contract for string input from actors.
