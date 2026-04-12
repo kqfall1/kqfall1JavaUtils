@@ -10,12 +10,13 @@ import java.util.Optional;
 
 public final class ValidatedTextFieldTest
 {
-    Optional<String> prompt = Optional.empty();
+    Optional<String> prompt;
     ValidatedJTextField validatedJTextField;
 
     @BeforeEach
     public void init()
     {
+        prompt = Optional.empty();
         validatedJTextField = new ValidatedJTextField();
     }
 
