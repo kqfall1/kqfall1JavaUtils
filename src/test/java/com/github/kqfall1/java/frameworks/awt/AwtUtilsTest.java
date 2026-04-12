@@ -1,6 +1,5 @@
-package com.github.kqfall1.java.frameworks.awt.swing;
+package com.github.kqfall1.java.frameworks.awt;
 
-import com.github.kqfall1.java.frameworks.awt.AwtUtils;
 import java.awt.*;
 import java.util.Optional;
 import javax.swing.*;

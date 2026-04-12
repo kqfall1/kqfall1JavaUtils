@@ -8,15 +8,30 @@ import org.junit.jupiter.api.Assertions;
 
 public final class InputterTests
 {
+    public static Double getPositiveRandomNumber(Optional<Double> minimumValue)
+    {
+        return Math.random() + minimumValue.orElse(0.0);
+    }
+
+    public static Optional<String> getNewPrompt(Optional<String> oldPrompt)
+    {
+        if (oldPrompt.isEmpty())
+        {
+            return Optional.of("Something");
+        }
+        else
+        {
+            return Optional.empty();
+        }
+    }
+
     public static CompletableFuture<Optional<Double>> numberInputterTest
     (NumberInputter numberInputter, Optional<String> prompt, double lowerBound, double upperBound)
     {
         return numberInputter.getNumber(prompt, lowerBound, upperBound)
             .exceptionally(throwable ->
             {
-                Assertions.assertNotNull(throwable.getCause());
-                Assertions.assertTrue(throwable.getCause() instanceof IllegalArgumentException
-                        || throwable.getCause() instanceof NullPointerException);
+                Assertions.assertTrue(throwable instanceof IllegalArgumentException || throwable instanceof NullPointerException);
                 return null;
             })
             .thenApply(number ->
@@ -36,12 +51,16 @@ public final class InputterTests
         return stringInputter.getString(prompt, validStrings)
             .exceptionally(throwable ->
             {
-                Assertions.assertInstanceOf(IllegalArgumentException.class, throwable.getCause());
+                Assertions.assertInstanceOf(IllegalArgumentException.class, throwable);
                 return null;
             })
             .thenApply(string ->
             {
-                validStrings.ifPresent(strings -> Assertions.assertTrue(List.of(strings).contains(string)));
+                if (string != null)
+                {
+                    validStrings.ifPresent(strings -> Assertions.assertTrue(List.of(strings).contains(string)));
+                }
+
                 return Optional.ofNullable(string);
             });
     }
@@ -51,7 +70,7 @@ public final class InputterTests
         return yesNoInputter.getYesNo(prompt)
             .exceptionally(throwable ->
             {
-                Assertions.assertInstanceOf(NullPointerException.class, throwable.getCause());
+                Assertions.assertInstanceOf(IllegalArgumentException.class, throwable);
                 return null;
             })
             .thenApply(Optional::ofNullable);
