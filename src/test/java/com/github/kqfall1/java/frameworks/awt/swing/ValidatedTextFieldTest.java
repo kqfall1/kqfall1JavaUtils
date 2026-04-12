@@ -1,7 +1,7 @@
 package com.github.kqfall1.java.frameworks.awt.swing;
 
 import com.github.kqfall1.java.enums.YesNoInput;
-import com.github.kqfall1.java.interfaces.inputters.InputterTests;
+import com.github.kqfall1.java.interfaces.inputters.InputterTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
@@ -21,7 +21,7 @@ public final class ValidatedTextFieldTest
 
     private Optional<Double> _getNumberTest(double lowerBound, double upperBound)
     {
-        final var optionalNumber = InputterTests.numberInputterTest(validatedJTextField, prompt, lowerBound, upperBound).join();
+        final var optionalNumber = InputterTestUtils.numberInputterTest(validatedJTextField, prompt, lowerBound, upperBound).join();
         optionalNumber.ifPresent(number -> Assertions.assertEquals(Double.valueOf(validatedJTextField.getText()), optionalNumber.get()));
         return optionalNumber;
     }
@@ -29,15 +29,15 @@ public final class ValidatedTextFieldTest
     @RepeatedTest(200)
     public void getNumberTest()
     {
-        var lowerBound = InputterTests.getPositiveRandomNumber(Optional.empty());
-        prompt = InputterTests.getNewPrompt(prompt);
-        var upperBound = InputterTests.getPositiveRandomNumber(Optional.of(10.0));
+        var lowerBound = InputterTestUtils.getPositiveRandomNumber(Optional.empty());
+        prompt = InputterTestUtils.getNewPrompt(prompt);
+        var upperBound = InputterTestUtils.getPositiveRandomNumber(Optional.of(10.0));
         validatedJTextField.setText("  2.054723  ");
         _getNumberTest(lowerBound, upperBound);
 
-        lowerBound = InputterTests.getPositiveRandomNumber(Optional.empty()) - 25;
-        prompt = InputterTests.getNewPrompt(prompt);
-        upperBound = InputterTests.getPositiveRandomNumber(Optional.empty());
+        lowerBound = InputterTestUtils.getPositiveRandomNumber(Optional.empty()) - 25;
+        prompt = InputterTestUtils.getNewPrompt(prompt);
+        upperBound = InputterTestUtils.getPositiveRandomNumber(Optional.empty());
         validatedJTextField.setText("  -20.4093242  ");
         _getNumberTest(lowerBound, upperBound);
 
@@ -45,17 +45,17 @@ public final class ValidatedTextFieldTest
         upperBound = 10.0;
         validatedJTextField.setText("  0.0000000  ");
         _getNumberTest(lowerBound, upperBound);
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("  10.0000000000  ");
         _getNumberTest(lowerBound, upperBound);
 
-        lowerBound = InputterTests.getPositiveRandomNumber(Optional.empty());
-        upperBound = InputterTests.getPositiveRandomNumber(Optional.of(10.0));
+        lowerBound = InputterTestUtils.getPositiveRandomNumber(Optional.empty());
+        upperBound = InputterTestUtils.getPositiveRandomNumber(Optional.of(10.0));
         validatedJTextField.setText("  200.2940213  ");
         var optionalDouble = _getNumberTest(lowerBound, upperBound);
         Assertions.assertTrue(optionalDouble.isEmpty());
 
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("  -200.7432845806  ");
         optionalDouble = _getNumberTest(lowerBound, upperBound);
         Assertions.assertTrue(optionalDouble.isEmpty());
@@ -63,7 +63,7 @@ public final class ValidatedTextFieldTest
 
     private Optional<String> _getStringTest(Optional<String[]> validStrings)
     {
-        final var optionalString = InputterTests.stringInputterTest(validatedJTextField, prompt, validStrings).join();
+        final var optionalString = InputterTestUtils.stringInputterTest(validatedJTextField, prompt, validStrings).join();
         optionalString.ifPresent(string -> Assertions.assertEquals(validatedJTextField.getText(), optionalString.get()));
         return optionalString;
     }
@@ -71,23 +71,23 @@ public final class ValidatedTextFieldTest
     @Test
     public void getStringTest()
     {
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         var validStrings = Optional.<String[]>empty();
         validatedJTextField.setText("  ");
         _getStringTest(validStrings);
 
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validStrings = Optional.of(new String[] { "  blue  ", "~12GReeN", "_-@yellow" });
         validatedJTextField.setText("  blue  ");
         _getStringTest(validStrings);
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("~12GReeN");
         _getStringTest(validStrings);
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("_-@yellow");
         _getStringTest(validStrings);
 
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("SomethingElse");
         var optionalString = _getStringTest(validStrings);
         Assertions.assertTrue(optionalString.isEmpty());
@@ -99,25 +99,25 @@ public final class ValidatedTextFieldTest
     @Test
     public void getYesNoTest()
     {
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("  YeS  ");
-        var optionalYesNo = InputterTests.yesNoInputterTest(validatedJTextField, prompt).join();
+        var optionalYesNo = InputterTestUtils.yesNoInputterTest(validatedJTextField, prompt).join();
         Assertions.assertTrue(optionalYesNo.isPresent());
         Assertions.assertEquals(YesNoInput.YES, optionalYesNo.get());
 
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("  nO  ");
-        optionalYesNo = InputterTests.yesNoInputterTest(validatedJTextField, prompt).join();
+        optionalYesNo = InputterTestUtils.yesNoInputterTest(validatedJTextField, prompt).join();
         Assertions.assertTrue(optionalYesNo.isPresent());
         Assertions.assertEquals(YesNoInput.NO, optionalYesNo.get());
 
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("SomethingElse");
-        optionalYesNo = InputterTests.yesNoInputterTest(validatedJTextField, prompt).join();
+        optionalYesNo = InputterTestUtils.yesNoInputterTest(validatedJTextField, prompt).join();
         Assertions.assertTrue(optionalYesNo.isEmpty());
-        prompt = InputterTests.getNewPrompt(prompt);
+        prompt = InputterTestUtils.getNewPrompt(prompt);
         validatedJTextField.setText("Example");
-        optionalYesNo = InputterTests.yesNoInputterTest(validatedJTextField, prompt).join();
+        optionalYesNo = InputterTestUtils.yesNoInputterTest(validatedJTextField, prompt).join();
         Assertions.assertTrue(optionalYesNo.isEmpty());
     }
 }

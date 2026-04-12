@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Assertions;
 
-public final class InputterTests
+public final class InputterTestUtils
 {
     public static Double getPositiveRandomNumber(Optional<Double> minimumValue)
     {
