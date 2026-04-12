@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 import java.util.Optional;
+import java.time.Instant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.time.Instant;
 
 public final class LoggerUtilsTest
 {
-    private void _newFileLoggerTest(Logger logger)
+    private void _getFileLoggerTest(Logger logger)
     {
         final var logFile = Path.of(logger.getName()).toFile();
         long previousLogFileLength;
@@ -24,12 +24,12 @@ public final class LoggerUtilsTest
     }
 
     @Test
-    public void newFileLoggerTest() throws IOException
+    public void getFileLoggerTest() throws IOException
     {
-        var logger = LoggerUtils.newFileLogger(Optional.empty(), false);
-        _newFileLoggerTest(logger);
+        var logger = LoggerUtils.getFileLogger(Optional.empty(), false);
+        _getFileLoggerTest(logger);
 
-        logger = LoggerUtils.newFileLogger(Optional.of(Path.of(System.getProperty("java.io.tmpdir"), Instant.now().toString().replace(':', '.'))), true);
-        _newFileLoggerTest(logger);
+        logger = LoggerUtils.getFileLogger(Optional.of(Path.of(System.getProperty("java.io.tmpdir"), Instant.now().toString().replace(':', '.'))), true);
+        _getFileLoggerTest(logger);
     }
 }
