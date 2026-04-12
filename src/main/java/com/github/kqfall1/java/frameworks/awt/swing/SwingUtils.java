@@ -2,6 +2,7 @@ package com.github.kqfall1.java.frameworks.awt.swing;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 import java.util.Optional;
 import javax.swing.*;
 
@@ -22,6 +23,8 @@ public final class SwingUtils
      */
     public static Optional<JFrame> getRootJFrame(ActionEvent e)
     {
+        Objects.requireNonNull(e, "\"e\" is null.");
+
         if (e.getSource() instanceof JMenuItem jMenuItem)
         {
             return (Optional.of(jMenuItem)

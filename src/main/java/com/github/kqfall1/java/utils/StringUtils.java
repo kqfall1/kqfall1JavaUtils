@@ -1,5 +1,7 @@
 package com.github.kqfall1.java.utils;
 
+import java.util.Objects;
+
 /**
  * Static class. Provides abstractions for repetitive, {@code String}-related tasks.
  *
@@ -10,13 +12,15 @@ public final class StringUtils
 {
 	private StringUtils() {}
 
-	public static String normalizeLower(String str)
+	public static String normalizeLower(String string)
 	{
-		return str.trim().toLowerCase();
+		Objects.requireNonNull(string);
+		return string.trim().toLowerCase();
 	}
 
-	public static String normalizeUpper(String str)
+	public static String normalizeUpper(String string)
 	{
-		return str.trim().toUpperCase();
+		Objects.requireNonNull(string);
+		return string.trim().toUpperCase();
 	}
 }
