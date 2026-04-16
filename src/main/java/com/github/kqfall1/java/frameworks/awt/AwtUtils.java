@@ -1,6 +1,8 @@
 package com.github.kqfall1.java.frameworks.awt;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.*;
 
 /**
@@ -45,5 +47,33 @@ public final class AwtUtils
         }
 
         return allComponents.toArray(new Component[0]);
+    }
+
+    /**
+     * Retrieves the {@code Window} containing the {@code Component}-type source of a given {@code ActionEvent}.
+     * @param e An {@code ActionEvent}.
+     * @return An {@code Optional} encapsulating the {@code Window} that contains the source of {@code e}, or
+     * {@code Optional.empty()} if not found.
+     */
+    public static Optional<Window> getRootWindow(ActionEvent e)
+    {
+        Objects.requireNonNull(e, "\"e\" is null.");
+
+        if (e.getSource() instanceof JMenuItem jMenuItem)
+        {
+            return (Optional.of(jMenuItem)
+                .map(JComponent::getParent)
+                .filter(container -> container instanceof JPopupMenu)
+                .map(jPopupMenuContainer -> (JPopupMenu) jPopupMenuContainer)
+                .map(JPopupMenu::getInvoker)
+                .map(SwingUtilities::getWindowAncestor)
+            );
+        }
+        else
+        {
+            return Optional.ofNullable(SwingUtilities.getAncestorOfClass(Window.class, (Component) e.getSource()))
+                .filter(container -> container instanceof Window)
+                .map(windowContainer -> (Window) windowContainer);
+        }
     }
 }
