@@ -1,7 +1,6 @@
 package com.github.kqfall1.java.frameworks.awt;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Optional;
 import javax.swing.*;
@@ -54,30 +53,29 @@ public final class AwtUtilsTest
     @Test
     public void getRootWindowTest()
     {
-        final var jButton = new JButton();
+        final var button = new JButton();
         windows = new ArrayList<>();
-        jButton.addActionListener(this::jComponentActionListener);
-        jButton.doClick();
+        button.addActionListener(e -> AwtUtils.getRootWindow(e).ifPresent(windows::add));
+        button.doClick();
         Assertions.assertTrue(this.windows.isEmpty());
 
-        var frame = new JFrame();
-        frame.add(jButton);
-        jButton.doClick();
+        var frame = new Frame();
+        frame.add(button);
+        button.doClick();
         Assertions.assertEquals(1, this.windows.size());
 
-        frame.setJMenuBar(new JMenuBar());
-        var jMenuItem = new JMenuItem();
-        jMenuItem.addActionListener(this::jComponentActionListener);
-        var jMenu = new JMenu();
-        jMenu.add(jMenuItem);
-        frame.getJMenuBar().add(jMenu);
-        jMenuItem.doClick();
+        final var jFrame = new JFrame();
+        jFrame.add(button);
+        button.doClick();
         Assertions.assertEquals(2, this.windows.size());
-    }
 
-    private void jComponentActionListener(ActionEvent e)
-    {
-        final var optionalWindow = AwtUtils.getRootWindow(e);
-        optionalWindow.ifPresent(windows::add);
+        jFrame.setJMenuBar(new JMenuBar());
+        final var jMenuItem = new JMenuItem();
+        jMenuItem.addActionListener(e -> AwtUtils.getRootWindow(e).ifPresent(windows::add));
+        final var jMenu = new JMenu();
+        jMenu.add(jMenuItem);
+        jFrame.getJMenuBar().add(jMenu);
+        jMenuItem.doClick();
+        Assertions.assertEquals(3, this.windows.size());
     }
 }

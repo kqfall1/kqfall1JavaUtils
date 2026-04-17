@@ -1,9 +1,9 @@
 package com.github.kqfall1.java.frameworks.awt;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
+import javax.swing.*;
 
 /**
  * Static class. Provides abstraction for repetitive, {@code AWT}-related tasks.
@@ -71,9 +71,7 @@ public final class AwtUtils
         }
         else
         {
-            return Optional.ofNullable(SwingUtilities.getAncestorOfClass(Window.class, (Component) e.getSource()))
-                .filter(container -> container instanceof Window)
-                .map(windowContainer -> (Window) windowContainer);
+            return Optional.ofNullable((Window) SwingUtilities.getAncestorOfClass(Window.class, (Component) e.getSource()));
         }
     }
 }
