@@ -51,15 +51,29 @@ public final class AwtUtils
 
     /**
      * Retrieves the {@code Window} containing the {@code Component}-type source of a given {@code ActionEvent}.
-     * @param e An {@code ActionEvent}.
      * @return An {@code Optional} encapsulating the {@code Window} that contains the source of {@code e}, or
      * {@code Optional.empty()} if not found.
      */
     public static Optional<Window> getRootWindow(ActionEvent e)
     {
         Objects.requireNonNull(e, "\"e\" is null.");
+        return _getRootWindow((Component) e.getSource());
+    }
 
-        if (e.getSource() instanceof JMenuItem jMenuItem)
+    /**
+     * Retrieves the {@code Window} containing a given {@code Component}.
+     * @return An {@code Optional} encapsulating the {@code Window} that contains {@code component}, or
+     * {@code Optional.empty()} if not found.
+     */
+    public static Optional<Window> getRootWindow(Component component)
+    {
+        Objects.requireNonNull(component, "\"component\" is null.");
+        return _getRootWindow(component);
+    }
+
+    private static Optional<Window> _getRootWindow(Component component)
+    {
+        if (component instanceof JMenuItem jMenuItem)
         {
             return (Optional.of(jMenuItem)
                 .map(JComponent::getParent)
@@ -71,7 +85,30 @@ public final class AwtUtils
         }
         else
         {
-            return Optional.ofNullable((Window) SwingUtilities.getAncestorOfClass(Window.class, (Component) e.getSource()));
+            return Optional.ofNullable((Window) SwingUtilities.getAncestorOfClass(Window.class, component));
         }
+    }
+
+    /**
+     * Used to calculate the size of a {@code Component} or GUI margin relative to the size of the {@code bounds} of the
+     * {@code GraphicsDevice} device displaying it.
+     * @param widthMultiplier The multiplier to apply to the width of the {@code bounds} of the current {@code GraphicsDevice}.
+     * @param heightMultiplier The multiplier to apply to the height of the {@code bounds} of the current {@code GraphicsDevice}.
+     * @return An {@code Optional} encapsulating the {@code Dimension} representing the desired relative size, or
+     * {@code Optional.empty} if {@code component} has no ancestor.
+     */
+    public static Optional<Dimension> getSizeRelativeToDisplayBounds(Component component, double widthMultiplier, double heightMultiplier)
+    {
+        return getRootWindow(component)
+            .map(window -> (Component) window)
+            .map(Component::getGraphicsConfiguration)
+            .map(GraphicsConfiguration::getBounds)
+            .map(displayBounds ->
+            {
+                return new Dimension(
+                    (int) (displayBounds.getWidth() * widthMultiplier),
+                    (int) (displayBounds.getHeight() * heightMultiplier)
+                );
+            });
     }
 }
